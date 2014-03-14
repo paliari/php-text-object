@@ -1,0 +1,20 @@
+{
+    "name": "paliari/php-text-object",
+    "description": "Converte arquivos de texto para objeto",
+    "keywords": ["php", "date", "datetime"],
+    "homepage": "https://github.com/paliari/php-text-object",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Marcos Paliari",
+            "email": "marcos@paliari.com.br",
+            "homepage": "http://paliari.com.br"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Paliari\\TextObject\\": "src"
+        }
+    }
+}
