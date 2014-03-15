@@ -22,7 +22,21 @@ class FDateTest extends PHPUnit_Framework_TestCase
     {
         $f = new FDate();
         $this->assertEquals('', $f(''));
+        $this->assertNull($f(''));
+        $this->assertNull($f(null));
         $this->assertEquals(new DateTime('2014-01-01'), $f('2014-01-01'));
+    }
+
+    /**
+     * Se passar uma data invalida.
+     *
+     * @expectedException DomainException
+     */
+    public function testInvalid()
+    {
+        $f = new FDate();
+        $d = 'lll';
+        $f($d);
     }
 
     /**
