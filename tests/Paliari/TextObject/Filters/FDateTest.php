@@ -11,8 +11,8 @@ class FDateTest extends PHPUnit_Framework_TestCase
      */
     public function testRequired()
     {
-        $d = new FDate(true);
-        $this->assertEquals('', $d(''));
+        $f = new FDate(true);
+        $f('');
     }
 
     /**
@@ -20,9 +20,9 @@ class FDateTest extends PHPUnit_Framework_TestCase
      */
     public function testNoRequired()
     {
-        $d = new FDate();
-        $this->assertEquals('', $d(''));
-        $this->assertEquals(new DateTime('2014-01-01'), $d('2014-01-01'));
+        $f = new FDate();
+        $this->assertEquals('', $f(''));
+        $this->assertEquals(new DateTime('2014-01-01'), $f('2014-01-01'));
     }
 
     /**
