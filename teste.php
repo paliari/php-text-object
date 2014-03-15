@@ -9,14 +9,6 @@ use Paliari\TextObject\Column,
 
 require_once "vendor/autoload.php";
 
-$d = new FDate('12/09/2012');
-$d->setFormat('DD/MM/YYYY');
-
-$d = new FEmail('aa@a.z');
-
-var_export($d());
-exit;
-
 $result = array();
 
 $rp = new RowParams();
@@ -35,9 +27,3 @@ foreach ($f->getRows() as $v) {
 }
 
 var_export($result);
-
-//$r->addColumn(Column::create()->setInit(0)->setLength(10)->setType('string')->setName('nome'));
-
-
-
-//var_export($r->toArray());
