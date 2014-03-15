@@ -1,6 +1,7 @@
 <?php
 
 namespace Paliari\TextObject\Filters;
+
 /**
  * Class FInt
  * @package Paliari\TextObject\Filters
@@ -10,6 +11,7 @@ class FInt extends AbstractFilter
     public function convert()
     {
         $this->validate();
+
         return (int)$this->value;
     }
 
@@ -26,11 +28,12 @@ class FInt extends AbstractFilter
         if ($this->required) {
             return $this->isInt();
         }
+
         return $this->value ? $this->isInt() : true;
     }
 
     protected function isInt()
     {
-        return is_numeric($this->value) && false === strpos($this->value, '.');
+        return false === filter_var($this->value, FILTER_VALIDATE_INT);
     }
 } 

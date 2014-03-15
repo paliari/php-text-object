@@ -123,4 +123,11 @@ class FDate extends AbstractFilter
         return "$d[Y]-$d[M]-$d[D] $d[H]:$d[I]:$d[S]";
     }
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->dateString();
+    }
 }
