@@ -3,13 +3,19 @@
 use Paliari\TextObject\Column,
     Paliari\TextObject\File,
     Paliari\TextObject\RowParams,
-    Paliari\TextObject\RowValues;
+    Paliari\TextObject\RowValues,
+    Paliari\TextObject\Filters\FDate,
+    Paliari\TextObject\Filters\FEmail;
 
 require_once "vendor/autoload.php";
 
+$d = new FDate('12/09/2012');
+$d->setFormat('DD/MM/YYYY');
 
-$v = 'abcdefghijklmnopqrstuvxz';
-$v = '0123456789';
+$d = new FEmail('aa@a.z');
+
+var_export($d());
+exit;
 
 $result = array();
 
