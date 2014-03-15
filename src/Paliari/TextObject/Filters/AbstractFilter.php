@@ -17,12 +17,10 @@ abstract class AbstractFilter
     protected $value;
 
     /**
-     * @param string $value
-     * @param bool   $required
+     * @param bool $required
      */
-    public function __construct($value = '', $required = false)
+    public function __construct($required = false)
     {
-        $this->value = $value;
         $this->required = $required;
         $this->init();
     }
@@ -56,8 +54,15 @@ abstract class AbstractFilter
         return $this->value;
     }
 
-    public function __invoke()
+    /**
+     * @param string $value
+     *
+     * @return mixed
+     */
+    public function __invoke($value)
     {
+        $this->value = $value;
+
         return $this->convert();
     }
 

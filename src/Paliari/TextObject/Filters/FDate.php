@@ -31,11 +31,11 @@ class FDate extends AbstractFilter
     /**
      * @var string
      */
-    protected $format = '';
+    protected $format = 'YYYY-MM-DD HH:II:SS';
 
     protected function init()
     {
-        $this->type = 'DateTime';
+        $this->type = 'datetime';
     }
 
     /**
@@ -64,6 +64,7 @@ class FDate extends AbstractFilter
         }
         $this->prepareDate();
         $date = $this->dateString();
+
         $this->validate();
 
         return $this->toDateTime($date);
@@ -78,8 +79,7 @@ class FDate extends AbstractFilter
         if ($this->required) {
             return $time;
         }
-
-        return $this->value ? $time : true;
+        return array_values($this->parts) ? $time : true;
     }
 
     /**
