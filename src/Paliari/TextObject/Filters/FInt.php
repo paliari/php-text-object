@@ -31,6 +31,6 @@ class FInt extends AbstractFilter
 
     protected function isInt()
     {
-        return is_numeric($this->value) && false === strpos($this->value, '.');
+        return false === filter_var($this->value, FILTER_VALIDATE_INT);
     }
 } 

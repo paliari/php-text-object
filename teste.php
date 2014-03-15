@@ -13,8 +13,8 @@ $d = new FDate('12/09/2012');
 $d->setFormat('DD/MM/YYYY');
 
 $d = new FEmail('aa@a.z');
-
-var_export($d());
+$v = '--1';
+var_export(filter_var($v, FILTER_VALIDATE_INT));
 exit;
 
 $result = array();
