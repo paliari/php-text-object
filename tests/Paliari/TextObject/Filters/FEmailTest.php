@@ -14,7 +14,7 @@ class FEmailTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Se a data nao e obrigatorio.
+     * Se o email nao e obrigatorio.
      */
     public function testNoRequired()
     {
