@@ -13,7 +13,7 @@ class FNumberString extends AbstractFilter
 
     protected function init()
     {
-        $this->type = 'phone';
+        $this->type = 'number_string';
     }
 
     public function convert()
