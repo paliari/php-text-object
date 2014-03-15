@@ -55,6 +55,9 @@ class FDate extends AbstractFilter
      */
     public function convert()
     {
+        foreach ($this->parts as $k => $v) {
+            $this->parts[$k] = '';
+        }
         $format = str_split($this->format, 1);
         $values = str_split($this->value, 1);
         foreach ($format as $k => $ch) {
@@ -63,11 +66,9 @@ class FDate extends AbstractFilter
             }
         }
         $this->prepareDate();
-        $date = $this->dateString();
-
         $this->validate();
 
-        return $this->toDateTime($date);
+        return $this->toDateTime();
     }
 
     /**
@@ -79,7 +80,8 @@ class FDate extends AbstractFilter
         if ($this->required) {
             return $time;
         }
-        return array_values($this->parts) ? $time : true;
+
+        return $time ? $time : true;
     }
 
     /**
@@ -104,13 +106,13 @@ class FDate extends AbstractFilter
     /**
      * Convert string e DateTime.
      *
-     * @param string $value
-     *
      * @return DateTime
      */
-    public function toDateTime($value)
+    public function toDateTime()
     {
-        return new DateTime($value);
+        $date = $this->dateString();
+
+        return $date ? new DateTime($date) : null;
     }
 
     /**
@@ -120,7 +122,7 @@ class FDate extends AbstractFilter
     {
         $d = $this->parts;
 
-        return "$d[Y]-$d[M]-$d[D] $d[H]:$d[I]:$d[S]";
+        return array_sum($d) ? "$d[Y]-$d[M]-$d[D] $d[H]:$d[I]:$d[S]" : '';
     }
 
     /**

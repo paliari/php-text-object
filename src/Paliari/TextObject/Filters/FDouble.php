@@ -3,7 +3,7 @@
 namespace Paliari\TextObject\Filters;
 
 /**
- * Class FFloat
+ * Class FDouble
  * @package Paliari\TextObject\Filters
  */
 class FDouble extends AbstractFilter

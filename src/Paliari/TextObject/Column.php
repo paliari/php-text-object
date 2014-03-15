@@ -2,6 +2,8 @@
 
 namespace Paliari\TextObject;
 
+use Paliari\TextObject\Filters\AbstractFilter;
+
 /**
  * Class Column representa uma coluna de uma row do arquivo.
  *
@@ -10,20 +12,21 @@ namespace Paliari\TextObject;
 class Column
 {
     protected $init = 0;
+
     protected $length = 0;
-    protected $type = '';
+
+    protected $type;
 
     /**
-     * @param int    $init
-     * @param int    $length
-     * @param string $type
+     * @param int                  $init
+     * @param int                  $length
+     * @param AbstractFilter|mixed $type
      */
-    public function __construct($init = 0, $length = 0, $type = 'string')
+    public function __construct($init = 0, $length = 0, $type = null)
     {
         $this->setInit($init)
             ->setLength($length)
-            ->setType($type)
-        ;
+            ->setType($type);
     }
 
     /**
@@ -77,13 +80,13 @@ class Column
     /**
      * Tipo de dados a ser convertido (string, int, double, DateTime).
      *
-     * @param string $type
+     * @param AbstractFilter $type
      *
      * @return Column
      */
     public function setType($type)
     {
-        $this->type = (string)$type;
+        $this->type = $type;
 
         return $this;
     }
@@ -91,7 +94,7 @@ class Column
     /**
      * Tipo de dados a ser convertido (string, int, double, DateTime).
      *
-     * @return string
+     * @return AbstractFilter
      */
     public function getType()
     {
@@ -107,6 +110,9 @@ class Column
      */
     public function extractValue($content)
     {
-        return trim(substr($content, $this->getInit(), $this->getLength()));
+        $value = trim(substr($content, $this->getInit(), $this->getLength()));
+        $type  = $this->type;
+
+        return $type ? $type($value) : $value;
     }
 }
