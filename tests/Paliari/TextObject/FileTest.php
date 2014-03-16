@@ -22,7 +22,6 @@ class FileTest extends PHPUnit_Framework_TestCase
 ',
         );
         $this->assertEquals($a, $lines);
-        var_export($lines);
     }
 
     /**
@@ -35,4 +34,5 @@ class FileTest extends PHPUnit_Framework_TestCase
         $f = new File(__DIR__ . '/nofile');
         $f->load();
     }
-} 
+
+}
