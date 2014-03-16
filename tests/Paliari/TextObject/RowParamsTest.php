@@ -29,6 +29,21 @@ class RowParamsTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test column duplicate.
+     *
+     * @expectedException DomainException
+     */
+    public function testColumnDuplicada()
+    {
+        $rp = new RowParams();
+        $c1 = new Column(0, 2, new FInt());
+        $c2 = new Column(2, 3, new FString());
+        $rp->addColumn('c1', $c1)
+            ->addColumn('c1', $c2);
+
+    }
+
+    /**
      * Test cols invalid.
      *
      * @expectedException DomainException

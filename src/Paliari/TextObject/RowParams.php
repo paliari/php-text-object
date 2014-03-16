@@ -18,9 +18,14 @@ class RowParams
      * @param Column $column
      *
      * @return RowParams
+     *
+     * @throws \DomainException
      */
     public function addColumn($name, $column)
     {
+        if (isset($this->columns[$name])) {
+            throw new DomainException("Coluna '$name' já existe!");
+        }
         $this->columns[$name] = $column;
 
         return $this;
