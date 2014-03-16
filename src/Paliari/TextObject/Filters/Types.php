@@ -88,5 +88,13 @@ class Types
         return isset(self::$_typesMap[$name]);
     }
 
-
+    /**
+     * Obtem os types mapeados.
+     *
+     * @return array
+     */
+    public static function getTypes()
+    {
+        return self::$_typesMap;
+    }
 } 

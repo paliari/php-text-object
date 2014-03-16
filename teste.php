@@ -15,8 +15,6 @@ use Paliari\TextObject\Column,
 require_once "vendor/autoload.php";
 
 
-exit;
-
 $result = array();
 
 $rp = new RowParams();
