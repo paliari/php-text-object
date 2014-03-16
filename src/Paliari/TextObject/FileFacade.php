@@ -2,7 +2,8 @@
 
 namespace Paliari\TextObject;
 
-use Paliari\TextObject\File;
+use Paliari\TextObject\Filters\AbstractFilter,
+    Paliari\TextObject\Filters\Types;
 
 /**
  * Class FileFacade
@@ -43,15 +44,19 @@ class FileFacade
     /**
      * Adiciona as colunas para ler o arquivo.
      *
-     * @param string $name
-     * @param int    $start
-     * @param int    $length
-     * @param null   $type
+     * @param string                $name
+     * @param int                   $start
+     * @param int                   $length
+     * @param AbstractFilter|string $type
+     * @param bool                  $required
      *
      * @return FileFacade
      */
-    public function addColumn($name, $start, $length, $type = null)
+    public function addColumn($name, $start, $length, $type = null, $required = false)
     {
+        if (is_string($type)) {
+            $type = Types::getType($type, $required);
+        }
         $this->params->addColumn($name, new Column($start, $length, $type));
 
         return $this;
@@ -65,7 +70,6 @@ class FileFacade
     public function exec()
     {
         $this->params->validate();
-
         $result = array();
         $this->file->load();
         foreach ($this->file->getRows() as $v) {

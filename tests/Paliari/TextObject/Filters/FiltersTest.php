@@ -22,7 +22,7 @@ class FiltersTest extends PHPUnit_Framework_TestCase
 
         while ($nome_itens = readdir($ponteiro)) {
             $className = explode('.', $nome_itens)[0];
-            if ('' !== $className && 'AbstractFilter' !== $className) {
+            if ('' !== $className && 'AbstractFilter' !== $className && 'Types' !== $className) {
                 $className = "Paliari\\TextObject\\Filters\\$className";
                 $classe = new $className();
                 $this->assertTrue($classe instanceof $className);

@@ -10,10 +10,12 @@ use Paliari\TextObject\Column,
     Paliari\TextObject\Filters\FNumberString,
     Paliari\TextObject\Filters\FDouble,
     Paliari\TextObject\Filters\FEmail,
-    Paliari\TextObject\FileFacade;
+    Paliari\TextObject\FileFacade,
+    Paliari\TextObject\Filters\Types;
 
 require_once "vendor/autoload.php";
 
+// exempo de uso da maneira manual.
 $result = array();
 
 $rp = new RowParams();
@@ -34,13 +36,18 @@ foreach ($f->getRows() as $v) {
 
 var_export($result);
 
+echo PHP_EOL;
+echo PHP_EOL;
+
+
+// exempo de uso da maneira facil (recomendado).
 $result = FileFacade::create($file_name)
-    ->addColumn('id', 0, 2, new FInt(true))
-    ->addColumn('c1', 2, 3, new FDouble())
-    ->addColumn('c2', 5, 10, new FNumberString())
-    ->addColumn('c2', 15, 5, new FString())
-    ->addColumn('c2', 20, 10, new FEmail())
-    ->addColumn('c2', 30, 19, new FDate())
+    ->addColumn('id', 0, 2, Types::INT, true)
+    ->addColumn('c1', 2, 3, Types::DOUBLE)
+    ->addColumn('c2', 5, 10, Types::NUMBER_STRING)
+    ->addColumn('c3', 15, 5, Types::STRING)
+    ->addColumn('c4', 20, 10, Types::EMAIL)
+    ->addColumn('c5', 30, 19, Types::DATE_TIME)
     ->exec()
 ;
 var_export($result);
