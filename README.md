@@ -21,4 +21,4 @@ Muito fácil de usar, com apenas algumas linha de código consegue extrair dados
 
 **Install Composer:**
     
-    {"require": {"paliari/php-text-object": "0.3.*"}}
+    {"require": {"paliari/php-text-object": "dev-master"}}
