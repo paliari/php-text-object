@@ -9,7 +9,8 @@ use Paliari\TextObject\Column,
     Paliari\TextObject\Filters\FString,
     Paliari\TextObject\Filters\FNumberString,
     Paliari\TextObject\Filters\FDouble,
-    Paliari\TextObject\Filters\FEmail;
+    Paliari\TextObject\Filters\FEmail,
+    Paliari\TextObject\FileFacade;
 
 require_once "vendor/autoload.php";
 
@@ -23,11 +24,23 @@ $rp->addColumn('c3', new Column(15, 5, new FString()));
 $rp->addColumn('c4', new Column(20, 10, new FEmail()));
 $rp->addColumn('c5', new Column(30, 19, new FDate()));
 
-$f = new File('teste.txt');
+$file_name = 'teste.txt';
+$f = new File($file_name);
 $f->load();
 foreach ($f->getRows() as $v) {
     $rv = new RowValues($rp, $v);
     $result[] = $rv->parse();
 }
 
+var_export($result);
+
+$result = FileFacade::create($file_name)
+    ->addColumn('id', 0, 2, new FInt(true))
+    ->addColumn('c1', 2, 3, new FDouble())
+    ->addColumn('c2', 5, 10, new FNumberString())
+    ->addColumn('c2', 15, 5, new FString())
+    ->addColumn('c2', 20, 10, new FEmail())
+    ->addColumn('c2', 30, 19, new FDate())
+    ->exec()
+;
 var_export($result);
