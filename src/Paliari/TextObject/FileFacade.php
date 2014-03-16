@@ -64,6 +64,8 @@ class FileFacade
      */
     public function exec()
     {
+        $this->params->validate();
+
         $result = array();
         $this->file->load();
         foreach ($this->file->getRows() as $v) {
