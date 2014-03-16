@@ -27,4 +27,24 @@ class RowParamsTest extends PHPUnit_Framework_TestCase
         );
         $this->assertEquals($cols, $rp->getColumns());
     }
-} 
+
+    /**
+     * Test cols invalid.
+     *
+     * @expectedException DomainException
+     */
+    public function testNoValid()
+    {
+        $rp = new RowParams();
+        $c1 = new Column(0, 2, new FInt());
+        $c2 = new Column(1, 3, new FString());
+        $rp->addColumn('c1', $c1)
+            ->addColumn('c2', $c2);
+        $cols = array(
+            'c1' => $c1,
+            'c2' => $c2,
+        );
+        $rp->validate();
+    }
+
+}
