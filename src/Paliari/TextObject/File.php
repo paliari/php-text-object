@@ -18,7 +18,7 @@ class File
     /**
      * @param string $name nome do arquivo
      */
-    public function __construct($name = '')
+    public function __construct($name)
     {
         $this->name = $name;
     }

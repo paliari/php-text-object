@@ -76,12 +76,35 @@ class FDate extends AbstractFilter
      */
     public function isValid()
     {
+        if (!$this->_isValid()) {
+            return false;
+        }
         $time = strtotime($this->dateString());
         if ($this->required) {
-            return $time;
+            return $this->_isValid() && $time;
         }
 
         return $time ? $time : true;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isValid()
+    {
+        $p = $this->parts;
+        if ($p['M'] > 12 || $p['D'] > 31 || $p['Y'] > 2500) {
+            return false;
+        }
+        if (($this->required || $p['Y'] > 0) && ($p['M'] < 1 || $p['D'] < 1)) {
+            return false;
+        }
+        foreach ($this->parts as $v) {
+            if (!is_numeric($v)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

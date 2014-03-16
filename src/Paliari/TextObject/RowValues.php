@@ -16,6 +16,9 @@ class RowValues
      */
     protected $content = '';
 
+    /**
+     * @var RowParams
+     */
     protected $params;
 
     protected $values = array();
