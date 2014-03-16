@@ -9,13 +9,13 @@ Muito fácil de usar, com apenas algumas linha de código consegue extrair dados
 **
 
         $result = FileFacade::create($file_name)
-        ->addColumn('id', 0, 2, new FInt(true))
-        ->addColumn('c1', 2, 3, new FDouble())
-        ->addColumn('c2', 5, 10, new FNumberString())
-        ->addColumn('c3', 15, 5, new FString())
-        ->addColumn('c4', 20, 10, new FEmail())
-        ->addColumn('c5', 30, 19, new FDate())
-        ->exec()
+            ->addColumn('id', 0, 2, Types::INT, true)
+            ->addColumn('c1', 2, 3, Types::DOUBLE)
+    		->addColumn('c2', 5, 10, Types::NUMBER_STRING)
+    		->addColumn('c3', 15, 5, Types::STRING)
+    		->addColumn('c4', 20, 10, Types::EMAIL)
+    		->addColumn('c5', 30, 19, Types::DATE_TIME)
+    		->exec()
     ;
 
 
