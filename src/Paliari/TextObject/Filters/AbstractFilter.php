@@ -17,11 +17,26 @@ abstract class AbstractFilter
     protected $value;
 
     /**
-     * @param bool $required
+     * Config default.
+     *
+     * @var array
      */
-    public function __construct($required = false)
+    protected $_default = array(
+        'required' => false,
+    );
+
+    /**
+     * @param bool|array $config
+     */
+    public function __construct($config = false)
     {
-        $this->required = $required;
+        if (is_bool($config)) {
+            $this->required = $config;
+        } elseif (is_array($config)) {
+            foreach ($config as $k => $v) {
+                $this->$k = $v;
+            }
+        }
         $this->init();
     }
 
