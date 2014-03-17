@@ -5,7 +5,7 @@ use Paliari\TextObject\Column,
     Paliari\TextObject\RowParams,
     Paliari\TextObject\RowValues,
     Paliari\TextObject\Filters\FInt,
-    Paliari\TextObject\Filters\FDate,
+    Paliari\TextObject\Filters\FDateTime,
     Paliari\TextObject\Filters\FString,
     Paliari\TextObject\Filters\FNumberString,
     Paliari\TextObject\Filters\FDouble,
@@ -24,7 +24,7 @@ $rp->addColumn('c1', new Column(2, 3, new FDouble()));
 $rp->addColumn('c2', new Column(5, 10, new FNumberString()));
 $rp->addColumn('c3', new Column(15, 5, new FString()));
 $rp->addColumn('c4', new Column(20, 10, new FEmail()));
-$rp->addColumn('c5', new Column(30, 19, new FDate()));
+$rp->addColumn('c5', new Column(30, 19, new FDateTime()));
 
 $file_name = 'teste.txt';
 $f = new File($file_name);
@@ -34,7 +34,7 @@ foreach ($f->getRows() as $v) {
     $result[] = $rv->parse();
 }
 
-var_export($result);
+//var_export($result);
 
 echo PHP_EOL;
 echo PHP_EOL;
@@ -47,7 +47,7 @@ $result = FileFacade::create($file_name)
     ->addColumn('c2', 5, 10, Types::NUMBER_STRING)
     ->addColumn('c3', 15, 5, Types::STRING)
     ->addColumn('c4', 20, 10, Types::EMAIL)
-    ->addColumn('c5', 30, 19, Types::DATE_TIME)
+    ->addColumn('c5', 30, 19, Types::DATE_TIME, array('format' => 'Y-m-d H:i:s', 'required' => true))
     ->exec()
 ;
 var_export($result);
