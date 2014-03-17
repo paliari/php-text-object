@@ -22,23 +22,18 @@ class FileFacade
      */
     protected $params;
 
-    /**
-     * @param string $file_name
-     */
-    public function __construct($file_name)
+    public function __construct()
     {
-        $this->file   = new File($file_name);
         $this->params = new RowParams();
     }
 
     /**
-     * @param string $file_name
      *
      * @return FileFacade
      */
-    public static function create($file_name)
+    public static function create()
     {
-        return new static($file_name);
+        return new static();
     }
 
     /**
@@ -65,10 +60,14 @@ class FileFacade
     /**
      * Obtem o conteudo do arquivo em uma array de array mapeado com os valores convertidos.
      *
+     * @param string $file_name
+     *
      * @return array
      */
-    public function exec()
+    public function exec($file_name)
     {
+        $this->file   = new File($file_name);
+
         $this->params->validate();
         $result = array();
         $this->file->load();
