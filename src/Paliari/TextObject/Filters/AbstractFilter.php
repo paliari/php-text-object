@@ -17,15 +17,6 @@ abstract class AbstractFilter
     protected $value;
 
     /**
-     * Config default.
-     *
-     * @var array
-     */
-    protected $_default = array(
-        'required' => false,
-    );
-
-    /**
      * @param bool|array $config
      */
     public function __construct($config = false)
@@ -33,6 +24,9 @@ abstract class AbstractFilter
         if (is_bool($config)) {
             $this->required = $config;
         } elseif (is_array($config)) {
+            $vars = get_object_vars($this);
+            unset($vars['type']);
+            $config = array_intersect_key($config, $vars);
             foreach ($config as $k => $v) {
                 $this->$k = $v;
             }

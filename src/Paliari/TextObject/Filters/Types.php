@@ -38,19 +38,26 @@ class Types
 
     /**
      * @param string $name
-     * @param bool   $required
+     * @param bool   $config
      *
      * @return AbstractFilter
      * @throws DomainException
      */
-    public static function getType($name, $required = false)
+    public static function getType($name, $config = false)
     {
-        $key = $name . $required;
+        $key = $name;
+        if (is_array($config)) {
+            foreach ($config as $k => $v) {
+                $key .= "$k:$v";
+            }
+        } else {
+            $key .= $config;
+        };
         if (!isset(self::$_typeObjects[$key])) {
             if (!isset(self::$_typesMap[$name])) {
                 throw new DomainException("Type '$name' not found!");
             }
-            self::$_typeObjects[$key] = new self::$_typesMap[$name]($required);
+            self::$_typeObjects[$key] = new self::$_typesMap[$name]($config);
         }
 
         return self::$_typeObjects[$key];

@@ -34,7 +34,7 @@ foreach ($f->getRows() as $v) {
     $result[] = $rv->parse();
 }
 
-var_export($result);
+//var_export($result);
 
 echo PHP_EOL;
 echo PHP_EOL;
@@ -47,7 +47,7 @@ $result = FileFacade::create($file_name)
     ->addColumn('c2', 5, 10, Types::NUMBER_STRING)
     ->addColumn('c3', 15, 5, Types::STRING)
     ->addColumn('c4', 20, 10, Types::EMAIL)
-    ->addColumn('c5', 30, 19, Types::DATE_TIME)
+    ->addColumn('c5', 30, 19, Types::DATE_TIME, array('format' => 'YYYY-MM-DD', 'required' => true))
     ->exec()
 ;
 var_export($result);
