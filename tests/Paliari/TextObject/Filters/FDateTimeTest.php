@@ -1,17 +1,17 @@
 <?php
-use Paliari\TextObject\Filters\FDate;
+use Paliari\TextObject\Filters\FDateTime;
 
 /**
- * Class FDateTest
+ * Class FDateTimeTest
  */
-class FDateTest extends PHPUnit_Framework_TestCase
+class FDateTimeTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException DomainException
      */
     public function testRequired()
     {
-        $f = new FDate(true);
+        $f = new FDateTime(true);
         $f('');
     }
 
@@ -20,11 +20,13 @@ class FDateTest extends PHPUnit_Framework_TestCase
      */
     public function testNoRequired()
     {
-        $f = new FDate();
+        $f = new FDateTime();
         $this->assertEquals('', $f(''));
         $this->assertNull($f(''));
         $this->assertNull($f(null));
-        $this->assertEquals(new DateTime('2014-01-01'), $f('2014-01-01'));
+        $this->assertEquals(new DateTime('2014-01-01 23:45:15'), $f('2014-01-01 23:45:15'));
+        $f->setFormat('Y-m-d');
+//        $this->assertEquals(new DateTime('2014-01-01'), $f('2014-01-01'));
     }
 
     /**
@@ -34,7 +36,7 @@ class FDateTest extends PHPUnit_Framework_TestCase
      */
     public function testInvalid()
     {
-        $f = new FDate();
+        $f = new FDateTime();
         $d = 'lll';
         $f($d);
     }
@@ -50,19 +52,19 @@ class FDateTest extends PHPUnit_Framework_TestCase
         $ano  = date('Y', time()) - 5;
         $mes  = 1;
         $dia  = 0;
-        $f    = new FDate();
+        $f    = new FDateTime();
         while ($ano <= $stop) {
             $timestamp = mktime(0, 0, 0, $mes, $dia + 1, $ano);
             $dia       = date('d', $timestamp);
             $mes       = date('m', $timestamp);
             $ano       = date('Y', $timestamp);
-            $f->setFormat('YYYY-MM-DD');
+            $f->setFormat('Y-m-d');
             $this->assertEquals(new DateTime("$ano-$mes-$dia"), $f("$ano-$mes-$dia"));
-            $f->setFormat('DD/MM/YYYY');
+            $f->setFormat('d/m/Y');
             $this->assertEquals(new DateTime("$ano-$mes-$dia"), $f("$dia-$mes-$ano"));
-            $f->setFormat('DDMMYYYY');
+            $f->setFormat('dmY');
             $this->assertEquals(new DateTime("$ano-$mes-$dia"), $f("$dia$mes$ano"));
-            $f->setFormat('YYYYMMDD');
+            $f->setFormat('Ymd');
             $this->assertEquals(new DateTime("$ano-$mes-$dia"), $f("$ano$mes$dia"));
         }
 
@@ -77,13 +79,13 @@ class FDateTest extends PHPUnit_Framework_TestCase
     {
         $y = date('Y', time());
         $m = date('m', time());
-        $d = date('m', time());
+        $d = date('d', time());
         $h = 0;
         $i = 0;
         $s = 0;
 
         $stp = $d + 1;
-        $f   = new FDate();
+        $f   = new FDateTime();
 
         while ($d < $stp) {
             $tmstp = mktime($h, $i, $s + 1, $m, $d, $y);
@@ -94,9 +96,9 @@ class FDateTest extends PHPUnit_Framework_TestCase
             $i     = str_pad(date('i', $tmstp), 2, '0', STR_PAD_LEFT);
             $s     = str_pad(date('s', $tmstp), 2, '0', STR_PAD_LEFT);
 
-            $f->setFormat('YYYYMMDDHHIISS');
+            $f->setFormat('YmdHis');
             $this->assertEquals(new DateTime("$y-$m-$d $h:$i:$s"), $f("$y$m$d$h$i$s"));
-            $f->setFormat('DDMMYYYYHHIISS');
+            $f->setFormat('dmYHis');
             $this->assertEquals(new DateTime("$y-$m-$d $h:$i:$s"), $f("$d$m$y$h$i$s"));
         }
     }

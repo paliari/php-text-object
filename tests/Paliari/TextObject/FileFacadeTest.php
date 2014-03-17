@@ -5,7 +5,7 @@ use Paliari\TextObject\FileFacade,
     Paliari\TextObject\Filters\FNumberString,
     Paliari\TextObject\Filters\FEmail,
     Paliari\TextObject\Filters\FString,
-    Paliari\TextObject\Filters\FDate;
+    Paliari\TextObject\Filters\FDateTime;
 
 /**
  * Class FileFacadeTest
@@ -22,7 +22,7 @@ class FileFacadeTest extends PHPUnit_Framework_TestCase
             ->addColumn('c2', 5, 10, new FNumberString())
             ->addColumn('c3', 15, 5, new FString())
             ->addColumn('c4', 20, 10, new FEmail())
-            ->addColumn('c5', 30, 19, new FDate())
+            ->addColumn('c5', 30, 19, new FDateTime())
             ->exec();
         $expected  = array(
             array(

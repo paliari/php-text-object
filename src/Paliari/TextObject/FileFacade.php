@@ -48,14 +48,14 @@ class FileFacade
      * @param int                   $start
      * @param int                   $length
      * @param AbstractFilter|string $type
-     * @param bool                  $required
+     * @param bool|array            $config array de config ou bool apenas obrigatorio
      *
      * @return FileFacade
      */
-    public function addColumn($name, $start, $length, $type = null, $required = false)
+    public function addColumn($name, $start, $length, $type = null, $config = false)
     {
         if (is_string($type)) {
-            $type = Types::getType($type, $required);
+            $type = Types::getType($type, $config);
         }
         $this->params->addColumn($name, new Column($start, $length, $type));
 
