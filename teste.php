@@ -41,13 +41,13 @@ echo PHP_EOL;
 
 
 // exempo de uso da maneira facil (recomendado).
-$result = FileFacade::create($file_name)
+$result = FileFacade::create()
     ->addColumn('id', 0, 2, Types::INT, true)
     ->addColumn('c1', 2, 3, Types::DOUBLE)
     ->addColumn('c2', 5, 10, Types::NUMBER_STRING)
     ->addColumn('c3', 15, 5, Types::STRING)
     ->addColumn('c4', 20, 10, Types::EMAIL)
     ->addColumn('c5', 30, 19, Types::DATE_TIME, array('format' => 'Y-m-d H:i:s', 'required' => true))
-    ->exec()
+    ->exec($file_name)
 ;
 var_export($result);
