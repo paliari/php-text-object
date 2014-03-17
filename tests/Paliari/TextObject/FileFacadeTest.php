@@ -16,14 +16,14 @@ class FileFacadeTest extends PHPUnit_Framework_TestCase
     public function testExec()
     {
         $file_name = __DIR__ . '/test_facade.txt';
-        $result    = FileFacade::create($file_name)
+        $result    = FileFacade::create()
             ->addColumn('id', 0, 2, new FInt(true))
             ->addColumn('c1', 2, 3, new FDouble())
             ->addColumn('c2', 5, 10, new FNumberString())
             ->addColumn('c3', 15, 5, new FString())
             ->addColumn('c4', 20, 10, new FEmail())
             ->addColumn('c5', 30, 19, new FDateTime())
-            ->exec();
+            ->exec($file_name);
         $expected  = array(
             array(
                 'id' => 11,
