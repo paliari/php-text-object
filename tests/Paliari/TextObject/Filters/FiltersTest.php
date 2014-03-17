@@ -1,5 +1,5 @@
 <?php
-use Paliari\TextObject\Filters\FDate,
+use Paliari\TextObject\Filters\FDateTime,
     Paliari\TextObject\Filters\FEmail,
     Paliari\TextObject\Filters\FString,
     Paliari\TextObject\Filters\FDouble,
@@ -7,7 +7,7 @@ use Paliari\TextObject\Filters\FDate,
     Paliari\TextObject\Filters\FNumberString;
 
 /**
- * Class FDate
+ * Class FDateTime
  */
 class FiltersTest extends PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class FiltersTest extends PHPUnit_Framework_TestCase
      */
     public function testNoRequired()
     {
-        $f = new FDate();
+        $f = new FDateTime();
         $this->assertEquals('', $f(''));
         $f = new FEmail();
         $this->assertEquals('', $f(''));
@@ -55,7 +55,7 @@ class FiltersTest extends PHPUnit_Framework_TestCase
      */
     public function testRequiredDate()
     {
-        $d = new FDate(true);
+        $d = new FDateTime(true);
         $this->assertEquals('', $d(''));
     }
 

@@ -23,7 +23,7 @@ class Types
      * @var array
      */
     protected static $_typesMap = array(
-        self::DATE_TIME     => 'Paliari\TextObject\Filters\FDate',
+        self::DATE_TIME     => 'Paliari\TextObject\Filters\FDateTime',
         self::DOUBLE        => 'Paliari\TextObject\Filters\FDouble',
         self::EMAIL         => 'Paliari\TextObject\Filters\FEmail',
         self::INT           => 'Paliari\TextObject\Filters\FInt',
