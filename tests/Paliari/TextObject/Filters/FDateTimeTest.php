@@ -44,7 +44,7 @@ class FDateTimeTest extends PHPUnit_Framework_TestCase
     /**
      * Testa datas num periodo de 10 anos.
      *
-     * @group long
+     * @group long1
      */
     public function testPeriodo()
     {
@@ -58,14 +58,16 @@ class FDateTimeTest extends PHPUnit_Framework_TestCase
             $dia       = date('d', $timestamp);
             $mes       = date('m', $timestamp);
             $ano       = date('Y', $timestamp);
+            $dt = new DateTime("$ano-$mes-$dia");
+            $dt->setTime(0, 0, 0);
             $f->setFormat('Y-m-d');
-            $this->assertEquals(new DateTime("$ano-$mes-$dia"), $f("$ano-$mes-$dia"));
+            $this->assertEquals($dt, $f("$ano-$mes-$dia"));
             $f->setFormat('d/m/Y');
-            $this->assertEquals(new DateTime("$ano-$mes-$dia"), $f("$dia-$mes-$ano"));
+            $this->assertEquals($dt, $f("$dia-$mes-$ano"));
             $f->setFormat('dmY');
-            $this->assertEquals(new DateTime("$ano-$mes-$dia"), $f("$dia$mes$ano"));
+            $this->assertEquals($dt, $f("$dia$mes$ano"));
             $f->setFormat('Ymd');
-            $this->assertEquals(new DateTime("$ano-$mes-$dia"), $f("$ano$mes$dia"));
+            $this->assertEquals($dt, $f("$ano$mes$dia"));
         }
 
     }
