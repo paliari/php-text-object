@@ -17,7 +17,7 @@ class FInt extends AbstractFilter
 
     protected function init()
     {
-        $this->type = 'int';
+        $this->type = Types::INT;
     }
 
     /**

@@ -23,7 +23,7 @@ class FDateTime extends AbstractFilter
 
     protected function init()
     {
-        $this->type = 'datetime';
+        $this->type = Types::DATE_TIME;
     }
 
     /**

@@ -11,7 +11,7 @@ class FDouble extends AbstractFilter
 
     protected function init()
     {
-        $this->type = 'double';
+        $this->type = Types::DOUBLE;
     }
 
     public function convert()
