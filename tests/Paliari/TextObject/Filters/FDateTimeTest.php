@@ -44,7 +44,7 @@ class FDateTimeTest extends PHPUnit_Framework_TestCase
     /**
      * Testa datas num periodo de 10 anos.
      *
-     * @group long1
+     * @group long
      */
     public function testPeriodo()
     {
