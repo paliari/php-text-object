@@ -18,27 +18,98 @@ class FileFacade
     protected $file;
 
     /**
-     * @var RowParams
+     * Array de params.
+     *
+     * @var array
      */
-    protected $params;
+    protected $params_maps = array();
 
-    public function __construct()
+    /**
+     * @var int
+     */
+    protected $rows_key_length = 0;
+
+    public function __construct($rows_key_length = 0)
     {
-        $this->params = new RowParams();
+        $this->rows_key_length = $rows_key_length;
     }
 
     /**
+     * @param int $rows_key_length
      *
      * @return FileFacade
      */
-    public static function create()
+    public static function create($rows_key_length = 0)
     {
-        return new static();
+        return new static($rows_key_length);
     }
 
     /**
      * Adiciona as colunas para ler o arquivo.
      *
+     * @param int                   $start
+     * @param int                   $length
+     * @param AbstractFilter|string $type
+     * @param bool|array            $config array de config ou bool apenas obrigatorio
+     *
+     * @return Column
+     */
+    public function createColumn($start, $length, $type = null, $config = false)
+    {
+        if (is_string($type)) {
+            $type = Types::getType($type, $config);
+        }
+
+        return new Column($start, $length, $type);
+    }
+
+    /**
+     * @param int $length
+     *
+     * @return $this
+     */
+    public function setRowsKeyLength($length)
+    {
+        $this->rows_key_length = $length;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRowsKeyLength()
+    {
+        return $this->rows_key_length;
+    }
+
+    /**
+     * @param RowParams $params_map
+     * @param           $key
+     *
+     * @return $this
+     */
+    public function setParams($params_map, $key)
+    {
+        $this->params_maps[$key] = $params_map;
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return RowParams
+     */
+    public function getParams($key = '')
+    {
+        return $this->params_maps[$key] = @$this->params_maps[$key] ? : new RowParams();
+    }
+
+    /**
+     * Adiciona as colunas para ler o arquivo.
+     *
+     * @param string                $row_key
      * @param string                $name
      * @param int                   $start
      * @param int                   $length
@@ -47,12 +118,9 @@ class FileFacade
      *
      * @return FileFacade
      */
-    public function addColumn($name, $start, $length, $type = null, $config = false)
+    public function addColumn($row_key, $name, $start, $length, $type = null, $config = false)
     {
-        if (is_string($type)) {
-            $type = Types::getType($type, $config);
-        }
-        $this->params->addColumn($name, new Column($start, $length, $type));
+        $this->getParams($row_key)->addColumn($name, $this->createColumn($start, $length, $type, $config));
 
         return $this;
     }
@@ -66,16 +134,28 @@ class FileFacade
      */
     public function exec($file_name)
     {
-        $this->file   = new File($file_name);
-
-        $this->params->validate();
+        $this->file = new File($file_name);
+        $this->validate();
         $result = array();
         $this->file->load();
         foreach ($this->file->getRows() as $v) {
-            $rv       = new RowValues($this->params, $v);
+            $key      = $this->getRowsKeyLength() ? substr($v, 0, $this->getRowsKeyLength()) : '';
+            $rv       = new RowValues($this->getParams($key), $v);
             $result[] = $rv->parse();
         }
 
         return $result;
     }
+
+    /**
+     * Validate rows params.
+     */
+    protected function validate()
+    {
+        foreach ($this->params_maps as $k => $v) {
+            $v->validate();
+        }
+    }
+
 }
+

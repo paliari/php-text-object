@@ -17,7 +17,7 @@ class FInt extends AbstractFilter
 
     protected function init()
     {
-        $this->type = 'int';
+        $this->type = Types::INT;
     }
 
     /**
@@ -34,6 +34,11 @@ class FInt extends AbstractFilter
 
     protected function isInt()
     {
-        return false !== filter_var($this->value, FILTER_VALIDATE_INT);
+        $value = ltrim($this->value, '0');
+        if ('' === $value && !$this->required) {
+            return true;
+        }
+
+        return false !== filter_var($value, FILTER_VALIDATE_INT);
     }
 } 

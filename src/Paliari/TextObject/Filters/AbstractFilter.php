@@ -10,7 +10,7 @@ use DomainException;
  */
 abstract class AbstractFilter
 {
-    public $type = 'string';
+    public $type = Types::STRING;
 
     protected $required = false;
 
