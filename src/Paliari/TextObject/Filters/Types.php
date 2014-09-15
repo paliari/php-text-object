@@ -10,6 +10,7 @@ use DomainException;
  */
 class Types
 {
+
     const DATE_TIME     = 'datetime';
     const DOUBLE        = 'double';
     const EMAIL         = 'email';
@@ -17,6 +18,7 @@ class Types
     const INT_2_DOUBLE  = 'int_2_double';
     const NUMBER_STRING = 'number_string';
     const STRING        = 'string';
+    const BOOL          = 'bool';
 
     /**
      * Mapa de tipos suportados.
@@ -31,6 +33,7 @@ class Types
         self::INT_2_DOUBLE  => 'Paliari\TextObject\Filters\FInt2Double',
         self::NUMBER_STRING => 'Paliari\TextObject\Filters\FNumberString',
         self::STRING        => 'Paliari\TextObject\Filters\FString',
+        self::BOOL          => 'Paliari\TextObject\Filters\FBool',
     );
 
     /**
@@ -106,4 +109,5 @@ class Types
     {
         return self::$_typesMap;
     }
-} 
+
+}
