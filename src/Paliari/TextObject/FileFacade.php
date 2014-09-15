@@ -139,7 +139,6 @@ class FileFacade
         $result = array();
         $this->file->load();
         foreach ($this->file->getRows() as $v) {
-            echo $v . PHP_EOL;
             $key      = $this->getRowsKeyLength() ? substr($v, 0, $this->getRowsKeyLength()) : '';
             $rv       = new RowValues($this->getParams($key), $v);
             $result[] = $rv->parse();
