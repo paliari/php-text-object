@@ -27,8 +27,7 @@ $rp->addColumn('c3', new Column(15, 5, new FString()));
 $rp->addColumn('c4', new Column(20, 10, new FEmail()));
 $rp->addColumn('c5', new Column(30, 19, new FDateTime()));
 
-$file_name = 'tmp/cadprojeto_2012.txt';
-$file_name = 'tmp/teste.txt';
+$file_name = 'teste.txt';
 $f = new File($file_name);
 $f->load();
 foreach ($f->getRows() as $v) {
