@@ -54,7 +54,7 @@ class RowValues
      */
     public function setContent($content)
     {
-        $this->content = $content;
+        $this->content = $this->is_utf8($content) ? $content : utf8_encode($content);
 
         return $this;
     }
@@ -73,6 +73,11 @@ class RowValues
     public function __toString()
     {
         return $this->getContent();
+    }
+
+    protected function is_utf8($str)
+    {
+        return (bool)preg_match('//u', $str) || mb_check_encoding($str,'UTF-8');
     }
 
 }

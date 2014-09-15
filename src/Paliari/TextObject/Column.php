@@ -110,7 +110,8 @@ class Column
      */
     public function extractValue($content)
     {
-        $value = trim(substr($content, $this->getInit(), $this->getLength()));
+        $value = trim(mb_substr($content, $this->getInit(), $this->getLength(), 'utf-8'));
+//        $value = trim(substr($content, $this->getInit(), $this->getLength()));
         $type  = $this->type;
 
         return $type ? $type($value) : $value;

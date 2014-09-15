@@ -10,7 +10,7 @@ class FEmail extends AbstractFilter
 
     protected function init()
     {
-        $this->type = 'email';
+        $this->type = Types::EMAIL;
     }
 
     /**
