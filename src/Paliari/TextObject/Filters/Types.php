@@ -14,6 +14,7 @@ class Types
     const DOUBLE        = 'double';
     const EMAIL         = 'email';
     const INT           = 'int';
+    const INT_2_DOUBLE  = 'int_2_double';
     const NUMBER_STRING = 'number_string';
     const STRING        = 'string';
 
@@ -27,6 +28,7 @@ class Types
         self::DOUBLE        => 'Paliari\TextObject\Filters\FDouble',
         self::EMAIL         => 'Paliari\TextObject\Filters\FEmail',
         self::INT           => 'Paliari\TextObject\Filters\FInt',
+        self::INT_2_DOUBLE  => 'Paliari\TextObject\Filters\FInt2Double',
         self::NUMBER_STRING => 'Paliari\TextObject\Filters\FNumberString',
         self::STRING        => 'Paliari\TextObject\Filters\FString',
     );
