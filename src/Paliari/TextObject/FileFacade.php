@@ -131,17 +131,26 @@ class FileFacade
      * @param string $file_name
      *
      * @return array
+     *
+     * @throws \Exception
      */
     public function exec($file_name)
     {
-        $this->file = new File($file_name);
-        $this->validate();
-        $result = array();
-        $this->file->load();
-        foreach ($this->file->getRows() as $v) {
-            $key      = $this->getRowsKeyLength() ? substr($v, 0, $this->getRowsKeyLength()) : '';
-            $rv       = new RowValues($this->getParams($key), $v);
-            $result[] = $rv->parse();
+        try {
+            $this->file = new File($file_name);
+            $this->validate();
+            $result = array();
+            $this->file->load();
+            foreach ($this->file->getRows() as $i => $v) {
+                $ln = 1 + $i;
+                $key      = $this->getRowsKeyLength() ? substr($v, 0, $this->getRowsKeyLength()) : '';
+                $rv       = new RowValues($this->getParams($key), $v);
+                $result[] = $rv->parse();
+            }
+        } catch (\DomainException $e) {
+            throw new \DomainException($e->getMessage() . " linha: $ln");
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage() . " linha: $ln");
         }
 
         return $result;
