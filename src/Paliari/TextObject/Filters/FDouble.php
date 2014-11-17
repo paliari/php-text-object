@@ -9,6 +9,8 @@ namespace Paliari\TextObject\Filters;
 class FDouble extends AbstractFilter
 {
 
+    protected $precision = 2;
+
     protected function init()
     {
         $this->type = Types::DOUBLE;
@@ -17,7 +19,7 @@ class FDouble extends AbstractFilter
     public function convert()
     {
         $this->validate();
-        return round($this->value, 2);
+        return round($this->value, $this->precision);
     }
 
     /**
