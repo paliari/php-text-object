@@ -20,5 +20,8 @@
     "require": {
         "phpunit/phpunit": "^8.5",
         "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "paliari/php-utils": "^1.1"
     }
 }
