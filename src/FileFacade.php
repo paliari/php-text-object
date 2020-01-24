@@ -2,8 +2,10 @@
 
 namespace Paliari\TextObject;
 
-use Paliari\TextObject\Filters\AbstractFilter,
-    Paliari\TextObject\Filters\Types;
+use DomainException;
+use Exception;
+use Paliari\TextObject\Filters\AbstractFilter;
+use Paliari\TextObject\Filters\Types;
 
 /**
  * Class FileFacade
@@ -11,7 +13,6 @@ use Paliari\TextObject\Filters\AbstractFilter,
  */
 class FileFacade
 {
-
     /**
      * @var File
      */
@@ -22,7 +23,7 @@ class FileFacade
      *
      * @var array
      */
-    protected $params_maps = array();
+    protected $params_maps = [];
 
     /**
      * @var int
@@ -103,7 +104,7 @@ class FileFacade
      */
     public function getParams($key = '')
     {
-        return $this->params_maps[$key] = @$this->params_maps[$key] ? : new RowParams();
+        return $this->params_maps[$key] = @$this->params_maps[$key] ?: new RowParams();
     }
 
     /**
@@ -132,7 +133,7 @@ class FileFacade
      *
      * @return array
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function exec($file_name)
     {
@@ -142,15 +143,15 @@ class FileFacade
             $result = array();
             $this->file->load();
             foreach ($this->file->getRows() as $i => $v) {
-                $ln = 1 + $i;
+                $ln       = 1 + $i;
                 $key      = $this->getRowsKeyLength() ? substr($v, 0, $this->getRowsKeyLength()) : '';
                 $rv       = new RowValues($this->getParams($key), $v);
                 $result[] = $rv->parse();
             }
-        } catch (\DomainException $e) {
-            throw new \DomainException($e->getMessage() . " linha: $ln");
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage() . " linha: $ln");
+        } catch (DomainException $e) {
+            throw new DomainException($e->getMessage() . " linha: $ln");
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage() . " linha: $ln");
         }
 
         return $result;
@@ -165,6 +166,4 @@ class FileFacade
             $v->validate();
         }
     }
-
 }
-

@@ -21,11 +21,6 @@ class FDateTime extends AbstractFilter
      */
     protected $date;
 
-    protected function init()
-    {
-        $this->type = Types::DATE_TIME;
-    }
-
     /**
      * @param string $value
      *
@@ -50,6 +45,41 @@ class FDateTime extends AbstractFilter
     }
 
     /**
+     * Convert string e DateTime.
+     *
+     * @return DateTime
+     */
+    public function toDateTime()
+    {
+        $time       = preg_replace('/[^\d]+/', '', $this->value);
+        $format     = preg_replace('/[^a-zA-Z]+/', '', $this->format);
+        $this->date = DateTime::createFromFormat($format, $time) ?: null;
+        $this->time($format);
+
+        return $this->date;
+    }
+
+    /**
+     * zera time caso nao tenha passado no format.
+     */
+    protected function time()
+    {
+        if ($this->date) {
+            $f = ['H', 'i', 's'];
+            $t = false;
+            foreach ($f as $v) {
+                if (false !== strpos($this->format, $v)) {
+                    $t = true;
+                    break;
+                }
+            }
+            if (!$t) {
+                $this->date->setTime(0, 0, 0);
+            }
+        }
+    }
+
+    /**
      * @return bool
      */
     public function isValid()
@@ -62,21 +92,6 @@ class FDateTime extends AbstractFilter
     }
 
     /**
-     * Convert string e DateTime.
-     *
-     * @return DateTime
-     */
-    public function toDateTime()
-    {
-        $time       = preg_replace('/[^\d]+/', '', $this->value);
-        $format     = preg_replace('/[^a-zA-Z]+/', '', $this->format);
-        $this->date = DateTime::createFromFormat($format, $time) ? : null;
-        $this->time($format);
-
-        return $this->date;
-    }
-
-    /**
      * @return string
      */
     public function __toString()
@@ -84,23 +99,8 @@ class FDateTime extends AbstractFilter
         return $this->value;
     }
 
-    /**
-     * zera time caso nao tenha passado no format.
-     */
-    protected function time()
+    protected function init()
     {
-        if ($this->date) {
-            $f = array('H', 'i', 's');
-            $t = false;
-            foreach ($f as $v) {
-                if (false !== strpos($this->format, $v)) {
-                    $t = true;
-                    break;
-                }
-            };
-            if (!$t) {
-                $this->date->setTime(0, 0, 0);
-            }
-        }
+        $this->type = Types::DATE_TIME;
     }
 }

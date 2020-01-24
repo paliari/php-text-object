@@ -10,7 +10,6 @@ use DomainException;
  */
 class Types
 {
-
     const DATE_TIME     = 'datetime';
     const DOUBLE        = 'double';
     const EMAIL         = 'email';
@@ -25,7 +24,7 @@ class Types
      *
      * @var array
      */
-    protected static $_typesMap = array(
+    protected static $_typesMap = [
         self::DATE_TIME     => 'Paliari\TextObject\Filters\FDateTime',
         self::DOUBLE        => 'Paliari\TextObject\Filters\FDouble',
         self::EMAIL         => 'Paliari\TextObject\Filters\FEmail',
@@ -34,12 +33,12 @@ class Types
         self::NUMBER_STRING => 'Paliari\TextObject\Filters\FNumberString',
         self::STRING        => 'Paliari\TextObject\Filters\FString',
         self::BOOL          => 'Paliari\TextObject\Filters\FBool',
-    );
+    ];
 
     /**
      * @var array
      */
-    protected static $_typeObjects = array();
+    protected static $_typeObjects = [];
 
     /**
      * @param string $name
@@ -109,5 +108,4 @@ class Types
     {
         return self::$_typesMap;
     }
-
 }

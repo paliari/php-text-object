@@ -8,8 +8,7 @@ namespace Paliari\TextObject\Filters;
  */
 class FBool extends FString
 {
-
-    protected $trues = array('1', 'Y', 'S', 'TRUE');
+    protected $trues = ['1', 'Y', 'S', 'TRUE'];
 
     protected function init()
     {
@@ -25,5 +24,4 @@ class FBool extends FString
 
         return in_array($this->value, $this->trues);
     }
-
 }

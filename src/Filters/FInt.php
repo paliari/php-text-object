@@ -15,11 +15,6 @@ class FInt extends AbstractFilter
         return (int)$this->value;
     }
 
-    protected function init()
-    {
-        $this->type = Types::INT;
-    }
-
     /**
      * @return bool
      */
@@ -40,5 +35,10 @@ class FInt extends AbstractFilter
         }
 
         return false !== filter_var($value, FILTER_VALIDATE_INT);
+    }
+
+    protected function init()
+    {
+        $this->type = Types::INT;
     }
 } 

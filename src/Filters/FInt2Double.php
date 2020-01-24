@@ -8,7 +8,6 @@ namespace Paliari\TextObject\Filters;
  */
 class FInt2Double extends FInt
 {
-
     protected function init()
     {
         $this->type = Types::INT_2_DOUBLE;
@@ -25,5 +24,4 @@ class FInt2Double extends FInt
 
         return $this->value / $this->divisor;
     }
-
 }

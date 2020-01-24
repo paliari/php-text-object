@@ -25,8 +25,9 @@ class Column
     public function __construct($init = 0, $length = 0, $type = null)
     {
         $this->setInit($init)
-            ->setLength($length)
-            ->setType($type);
+             ->setLength($length)
+             ->setType($type)
+        ;
     }
 
     /**
@@ -112,7 +113,7 @@ class Column
     {
         $value = trim(mb_substr($content, $this->getInit(), $this->getLength(), 'utf-8'));
 //        $value = trim(substr($content, $this->getInit(), $this->getLength()));
-        $type  = $this->type;
+        $type = $this->type;
 
         return $type ? $type($value) : $value;
     }

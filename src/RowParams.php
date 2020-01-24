@@ -10,7 +10,6 @@ use DomainException;
  */
 class RowParams
 {
-
     protected $columns = array();
 
     /**
@@ -19,7 +18,7 @@ class RowParams
      *
      * @return RowParams
      *
-     * @throws \DomainException
+     * @throws DomainException
      */
     public function addColumn($name, $column)
     {
@@ -42,7 +41,7 @@ class RowParams
     /**
      * Valida se as colunas estao corretas.
      *
-     * @throws \DomainException
+     * @throws DomainException
      */
     public function validate()
     {

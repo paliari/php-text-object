@@ -10,7 +10,6 @@ namespace Paliari\TextObject\Filters;
  */
 class FNumberString extends AbstractFilter
 {
-
     protected function init()
     {
         $this->type = Types::NUMBER_STRING;

@@ -8,7 +8,6 @@ namespace Paliari\TextObject;
  */
 class RowValues
 {
-
     /**
      * Conteudo total da linha do arquivo.
      *
@@ -21,11 +20,11 @@ class RowValues
      */
     protected $params;
 
-    protected $values = array();
+    protected $values = [];
 
     /**
      * @param RowParams $params
-     * @param string $content
+     * @param string    $content
      */
     public function __construct($params, $content = '')
     {
@@ -77,7 +76,6 @@ class RowValues
 
     protected function is_utf8($str)
     {
-        return (bool)preg_match('//u', $str) || mb_check_encoding($str,'UTF-8');
+        return (bool)preg_match('//u', $str) || mb_check_encoding($str, 'UTF-8');
     }
-
 }

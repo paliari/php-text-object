@@ -10,10 +10,9 @@ use Exception;
  */
 class File
 {
-
     protected $name = '';
 
-    protected $rows = array();
+    protected $rows = [];
 
     /**
      * @param string $name nome do arquivo
@@ -28,7 +27,7 @@ class File
      *
      * @return array
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function load()
     {
@@ -48,5 +47,4 @@ class File
     {
         return $this->rows;
     }
-
 }

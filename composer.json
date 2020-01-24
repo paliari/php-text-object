@@ -18,6 +18,7 @@
         }
     },
     "require": {
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^8.5",
+        "ext-mbstring": "*"
     }
 }

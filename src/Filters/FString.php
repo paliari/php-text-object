@@ -8,5 +8,4 @@ namespace Paliari\TextObject\Filters;
  */
 class FString extends AbstractFilter
 {
-
-} 
+}

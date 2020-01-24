@@ -1,13 +1,13 @@
 <?php
 
 namespace Paliari\TextObject\Filters;
+
 /**
  * Class FEmail
  * @package Paliari\TextObject\Filters
  */
 class FEmail extends AbstractFilter
 {
-
     protected function init()
     {
         $this->type = Types::EMAIL;
