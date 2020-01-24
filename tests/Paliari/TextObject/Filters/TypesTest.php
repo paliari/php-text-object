@@ -1,11 +1,12 @@
 <?php
 
 use Paliari\TextObject\Filters\Types;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class TypesTest
  */
-class TypesTest extends PHPUnit_Framework_TestCase
+class TypesTest extends TestCase
 {
 
     /**
@@ -59,21 +60,19 @@ class TypesTest extends PHPUnit_Framework_TestCase
 
     /**
      * Teste validacao de type existente.
-     *
-     * @expectedException DomainException
      */
     public function testAddTypeExistente()
     {
+        $this->expectException('DomainException');
         Types::addType('string', 'CustonFilter');
     }
 
     /**
      * Teste validacao de type duplicado.
-     *
-     * @expectedException DomainException
      */
     public function testAddTypeDuplicado()
     {
+        $this->expectException('DomainException');
         Types::addType('custon', 'CustonFilter');
         Types::addType('custon', 'CustonFilter');
     }

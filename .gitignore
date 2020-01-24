@@ -4,3 +4,4 @@ vendor
 docs
 tmp
 teste.php
+.phpunit.result.cache

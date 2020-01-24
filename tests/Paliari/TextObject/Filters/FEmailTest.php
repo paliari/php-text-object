@@ -1,14 +1,12 @@
 <?php
-
 use Paliari\TextObject\Filters\FEmail;
+use PHPUnit\Framework\TestCase;
 
-class FEmailTest extends PHPUnit_Framework_TestCase
+class FEmailTest extends TestCase
 {
-    /**
-     * @expectedException DomainException
-     */
     public function testRequired()
     {
+        $this->expectException('DomainException');
         $f = new FEmail(true);
         $f('');
     }
@@ -26,12 +24,11 @@ class FEmailTest extends PHPUnit_Framework_TestCase
 
     /**
      * Se passar um email invalido.
-     *
-     * @expectedException DomainException
      */
     public function testInvalid()
     {
-        $f = new FEmail();
+        $this->expectException('DomainException');
+        $f     = new FEmail();
         $email = 'x@xx';
         $f($email);
     }

@@ -13,8 +13,11 @@
         }
     ],
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "Paliari\\TextObject\\": "src"
         }
+    },
+    "require": {
+        "phpunit/phpunit": "^8.5"
     }
 }

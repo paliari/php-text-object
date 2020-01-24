@@ -4,18 +4,20 @@ use Paliari\TextObject\RowValues,
     Paliari\TextObject\Column,
     Paliari\TextObject\Filters\FInt,
     Paliari\TextObject\Filters\FString;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class RowValuesTest
  */
-class RowValuesTest extends PHPUnit_Framework_TestCase
+class RowValuesTest extends TestCase
 {
 
     public function testParse()
     {
         $rp = new RowParams();
         $rp->addColumn('c1', new Column(0, 2, new FInt()))
-            ->addColumn('c2', new Column(2, 3, new FString()));
+           ->addColumn('c2', new Column(2, 3, new FString()))
+        ;
         $content = '23abc   iii';
         $rv      = new RowValues($rp, $content);
         $this->assertEquals($content, $rv->getContent());

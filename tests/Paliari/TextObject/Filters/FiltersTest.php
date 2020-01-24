@@ -5,11 +5,12 @@ use Paliari\TextObject\Filters\FDateTime,
     Paliari\TextObject\Filters\FDouble,
     Paliari\TextObject\Filters\FInt,
     Paliari\TextObject\Filters\FNumberString;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FDateTime
  */
-class FiltersTest extends PHPUnit_Framework_TestCase
+class FiltersTest extends TestCase
 {
 
     /**
@@ -17,7 +18,7 @@ class FiltersTest extends PHPUnit_Framework_TestCase
      */
     public function testInstance()
     {
-        $diretorio = ROOT . '/src/Paliari/TextObject/Filters';
+        $diretorio = ROOT . '/src/Filters';
         $ponteiro  = opendir($diretorio);
 
         while ($nome_itens = readdir($ponteiro)) {
@@ -50,56 +51,44 @@ class FiltersTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $f(''));
     }
 
-    /**
-     * @expectedException DomainException
-     */
     public function testRequiredDate()
     {
+        $this->expectException('DomainException');
         $d = new FDateTime(true);
         $this->assertEquals('', $d(''));
     }
 
-    /**
-     * @expectedException DomainException
-     */
     public function testRequiredDouble()
     {
+        $this->expectException('DomainException');
         $d = new FDouble(true);
         $this->assertEquals('', $d(''));
     }
 
-    /**
-     * @expectedException DomainException
-     */
     public function testRequiredEmail()
     {
+        $this->expectException('DomainException');
         $d = new FEmail(true);
         $this->assertEquals('', $d(''));
     }
 
-    /**
-     * @expectedException DomainException
-     */
     public function testRequiredInt()
     {
+        $this->expectException('DomainException');
         $d = new FInt(true);
         $this->assertEquals(0, $d(''));
     }
 
-    /**
-     * @expectedException DomainException
-     */
     public function testRequiredNumericString()
     {
+        $this->expectException('DomainException');
         $d = new FNumberString(true);
         $this->assertEquals('', $d(''));
     }
 
-    /**
-     * @expectedException DomainException
-     */
     public function testRequiredString()
     {
+        $this->expectException('DomainException');
         $d = new FString(true);
         $this->assertEquals('', $d(''));
     }

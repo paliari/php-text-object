@@ -2,13 +2,14 @@
 use Paliari\TextObject\Column,
     Paliari\TextObject\Filters\FInt,
     Paliari\TextObject\Filters\FString;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ColumnTest
  * @package Paliari\TextObject
  *
  */
-class ColumnTest extends PHPUnit_Framework_TestCase
+class ColumnTest extends TestCase
 {
 
     public function testExtractValue()
