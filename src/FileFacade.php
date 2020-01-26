@@ -140,7 +140,7 @@ class FileFacade
         try {
             $this->file = new File($file_name);
             $this->validate();
-            $result = array();
+            $result = [];
             $this->file->load();
             foreach ($this->file->getRows() as $i => $v) {
                 $ln       = 1 + $i;

@@ -10,7 +10,6 @@ use DateTime;
  */
 class FDateTime extends AbstractFilter
 {
-
     /**
      * @var string
      */
