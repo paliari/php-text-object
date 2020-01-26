@@ -1,1 +1,0 @@
-php ~/Applications/apigen/apigen.php --source src/ --destination docs --groups "packages" --title "Paliari Text to Object" --debug
