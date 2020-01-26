@@ -50,12 +50,26 @@ class FDateTime extends AbstractFilter
      */
     public function toDateTime()
     {
-        $time       = preg_replace('/[^\d]+/', '', $this->value);
-        $format     = preg_replace('/[^a-zA-Z]+/', '', $this->format);
-        $this->date = DateTime::createFromFormat($format, $time) ?: null;
-        $this->time($format);
+        $time = preg_replace('/[^\d]+/', '', $this->value);
+        if ($this->isTimeValid($time)) {
+            $format     = preg_replace('/[^a-zA-Z]+/', '', $this->format);
+            $this->date = DateTime::createFromFormat($format, $time) ?: null;
+            $this->time();
+        }
 
         return $this->date;
+    }
+
+    /**
+     * Check se o time pode ser convertido em data, se conter somente zero eh false.
+     *
+     * @param string $time
+     *
+     * @return bool
+     */
+    protected function isTimeValid($time)
+    {
+        return $time && preg_match('/[^0]/', $time);
     }
 
     /**
