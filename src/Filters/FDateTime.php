@@ -51,7 +51,9 @@ class FDateTime extends AbstractFilter
     public function toDateTime()
     {
         $time = preg_replace('/[^\d]+/', '', $this->value);
-        if ($this->isTimeValid($time)) {
+        if ($this->isOnlyZero($time)) {
+            $this->value = '';
+        } else {
             $format     = preg_replace('/[^a-zA-Z]+/', '', $this->format);
             $this->date = DateTime::createFromFormat($format, $time) ?: null;
             $this->time();
@@ -67,9 +69,9 @@ class FDateTime extends AbstractFilter
      *
      * @return bool
      */
-    protected function isTimeValid($time)
+    protected function isOnlyZero($time)
     {
-        return $time && preg_match('/[^0]/', $time);
+        return $time && in_array($time, ['00000000', '00000000000000'], true);
     }
 
     /**
