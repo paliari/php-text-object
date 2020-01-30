@@ -4,8 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ecd80dec0bae6443c7e45d3a59b2f35",
-    "packages": [
+    "content-hash": "12e6f9452be45a0a2317d268dabb256b",
+    "packages": [],
+    "packages-dev": [
         {
             "name": "doctrine/instantiator",
             "version": "1.3.0",
@@ -109,6 +110,52 @@
                 "object graph"
             ],
             "time": "2020-01-17T21:11:47+00:00"
+        },
+        {
+            "name": "paliari/php-utils",
+            "version": "1.1.34",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paliari/php-utils.git",
+                "reference": "adfd7e686e6ce772f9d3c40cfe21554eb227c5ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paliari/php-utils/zipball/adfd7e686e6ce772f9d3c40cfe21554eb227c5ad",
+                "reference": "adfd7e686e6ce772f9d3c40cfe21554eb227c5ad",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7"
+            },
+            "bin": [
+                "bin/bump",
+                "bin/bump.php"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Paliari\\Utils\\": "src"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcos Paliari",
+                    "email": "marcos@paliari.com.br"
+                }
+            ],
+            "description": "PHP utils",
+            "time": "2019-09-01T21:13:41+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -1521,54 +1568,6 @@
                 "validate"
             ],
             "time": "2019-11-24T13:36:37+00:00"
-        }
-    ],
-    "packages-dev": [
-        {
-            "name": "paliari/php-utils",
-            "version": "1.1.34",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paliari/php-utils.git",
-                "reference": "adfd7e686e6ce772f9d3c40cfe21554eb227c5ad"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paliari/php-utils/zipball/adfd7e686e6ce772f9d3c40cfe21554eb227c5ad",
-                "reference": "adfd7e686e6ce772f9d3c40cfe21554eb227c5ad",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7"
-            },
-            "bin": [
-                "bin/bump",
-                "bin/bump.php"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Paliari\\Utils\\": "src"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marcos Paliari",
-                    "email": "marcos@paliari.com.br"
-                }
-            ],
-            "description": "PHP utils",
-            "time": "2019-09-01T21:13:41+00:00"
         }
     ],
     "aliases": [],
