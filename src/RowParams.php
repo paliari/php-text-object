@@ -10,7 +10,7 @@ use DomainException;
  */
 class RowParams
 {
-    protected $columns = array();
+    protected $columns = [];
 
     /**
      * @param string $name
@@ -31,7 +31,7 @@ class RowParams
     }
 
     /**
-     * @return array
+     * @return Column[]
      */
     public function getColumns()
     {
