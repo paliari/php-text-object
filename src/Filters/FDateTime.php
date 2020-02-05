@@ -53,6 +53,7 @@ class FDateTime extends AbstractFilter
         $time = preg_replace('/[^\d]+/', '', $this->value);
         if ($this->isOnlyZero($time)) {
             $this->value = '';
+            $this->date  = null;
         } else {
             $format     = preg_replace('/[^a-zA-Z]+/', '', $this->format);
             $this->date = DateTime::createFromFormat($format, $time) ?: null;
