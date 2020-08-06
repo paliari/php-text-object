@@ -137,15 +137,14 @@ class FileFacade
      */
     public function exec($file_name)
     {
+        $ln = 0;
         try {
-            $this->file = new File($file_name);
-            $this->validate();
+            $this->newFile($file_name);
             $result = [];
             $this->file->load();
-            foreach ($this->file->getRows() as $i => $v) {
-                $ln       = 1 + $i;
-                $key      = $this->getRowsKeyLength() ? substr($v, 0, $this->getRowsKeyLength()) : '';
-                $rv       = new RowValues($this->getParams($key), $v);
+            foreach ($this->file->getRows() as $line) {
+                $ln++;
+                $rv       = $this->getRowValues($line);
                 $result[] = $rv->parse();
             }
         } catch (DomainException $e) {
@@ -155,6 +154,47 @@ class FileFacade
         }
 
         return $result;
+    }
+
+    /**
+     * Executa o conteudo do arquivo linha por linha,
+     * chamando o $onRow com array mapeado dos valores convertidos e o numero da linha.
+     *
+     * @param string   $file_name
+     * @param callable $onRow ($row, $index)
+     *
+     * @throws Exception
+     */
+    public function execRowByRow($file_name, $onRow)
+    {
+        $ln = 0;
+        try {
+            $this->newFile($file_name);
+            $this->file->open();
+            while ($line = $this->file->getRow()) {
+                $ln++;
+                $rv = $this->getRowValues($line);
+                call_user_func($onRow, $rv->parse(), $ln);
+            }
+            $this->file->close();
+        } catch (DomainException $e) {
+            throw new DomainException($e->getMessage() . " linha: $ln");
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage() . " linha: $ln");
+        }
+    }
+
+    protected function newFile($file_name)
+    {
+        $this->file = new File($file_name);
+        $this->validate();
+    }
+
+    protected function getRowValues($line)
+    {
+        $key = $this->getRowsKeyLength() ? substr($line, 0, $this->getRowsKeyLength()) : '';
+
+        return new RowValues($this->getParams($key), $line);
     }
 
     /**
