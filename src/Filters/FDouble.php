@@ -19,7 +19,7 @@ class FDouble extends AbstractFilter
     {
         $this->validate();
 
-        return round($this->value, $this->precision);
+        return round((double)$this->value, $this->precision);
     }
 
     /**

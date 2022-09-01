@@ -50,7 +50,7 @@ class FDateTime extends AbstractFilter
      */
     public function toDateTime()
     {
-        $time = preg_replace('/[^\d]+/', '', $this->value);
+        $time = preg_replace('/[^\d]+/', '', (string)$this->value);
         if ($this->isOnlyZero($time)) {
             $this->value = '';
             $this->date  = null;

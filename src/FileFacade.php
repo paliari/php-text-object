@@ -104,7 +104,7 @@ class FileFacade
      */
     public function getParams($key = '')
     {
-        return $this->params_maps[$key] = @$this->params_maps[$key] ?: new RowParams();
+        return $this->params_maps[$key] = $this->params_maps[$key] ?? new RowParams();
     }
 
     /**

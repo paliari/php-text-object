@@ -2,11 +2,6 @@
     "name": "paliari/php-text-object",
     "version": "0.8.0",
     "description": "Converte arquivos de texto para objeto",
-    "keywords": [
-        "php",
-        "date",
-        "datetime"
-    ],
     "homepage": "https://github.com/paliari/php-text-object",
     "license": "MIT",
     "type": "library",
@@ -23,10 +18,11 @@
         }
     },
     "require": {
+        "php": ">=8.0",
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "paliari/php-utils": "^1.1",
-        "phpunit/phpunit": "^8.5"
+        "paliari/php-utils": "^2.0",
+        "phpunit/phpunit": "^9.5"
     }
 }
