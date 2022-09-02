@@ -1,6 +1,6 @@
 {
     "name": "paliari/php-text-object",
-    "version": "0.8.0",
+    "version": "1.0.0",
     "description": "Converte arquivos de texto para objeto",
     "homepage": "https://github.com/paliari/php-text-object",
     "license": "MIT",
