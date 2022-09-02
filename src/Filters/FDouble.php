@@ -8,29 +8,26 @@ namespace Paliari\TextObject\Filters;
  */
 class FDouble extends AbstractFilter
 {
-    protected $precision = 2;
+    protected int $precision = 2;
 
-    protected function init()
+    protected function init(): void
     {
         $this->type = Types::DOUBLE;
     }
 
-    public function convert()
+    public function convert(): float
     {
         $this->validate();
 
         return round((double)$this->value, $this->precision);
     }
 
-    /**
-     * @return bool
-     */
-    public function isValid()
+    public function isValid(): bool
     {
         if ($this->required) {
             return is_numeric($this->value);
         }
 
-        return $this->value ? is_numeric($this->value) : true;
+        return !$this->value || is_numeric($this->value);
     }
 }

@@ -10,32 +10,18 @@ use DateTime;
  */
 class FDateTime extends AbstractFilter
 {
-    /**
-     * @var string
-     */
-    protected $format = 'Y-m-d H:i:s';
+    protected string $format = 'Y-m-d H:i:s';
 
-    /**
-     * @var DateTime
-     */
-    protected $date;
+    protected ?DateTime $date = null;
 
-    /**
-     * @param string $value
-     *
-     * @return FDateTime
-     */
-    public function setFormat($value)
+    public function setFormat($value): static
     {
         $this->format = $value;
 
         return $this;
     }
 
-    /**
-     * @return DateTime|mixed
-     */
-    public function convert()
+    public function convert(): DateTime|null
     {
         $this->toDateTime();
         $this->validate();
@@ -45,17 +31,15 @@ class FDateTime extends AbstractFilter
 
     /**
      * Convert string e DateTime.
-     *
-     * @return DateTime
      */
-    public function toDateTime()
+    public function toDateTime(): ?DateTime
     {
-        $time = preg_replace('/[^\d]+/', '', (string)$this->value);
+        $time = preg_replace('/\D+/', '', (string)$this->value);
         if ($this->isOnlyZero($time)) {
             $this->value = '';
-            $this->date  = null;
+            $this->date = null;
         } else {
-            $format     = preg_replace('/[^a-zA-Z]+/', '', $this->format);
+            $format = preg_replace('/[^a-zA-Z]+/', '', $this->format);
             $this->date = DateTime::createFromFormat($format, $time) ?: null;
             $this->time();
         }
@@ -65,14 +49,10 @@ class FDateTime extends AbstractFilter
 
     /**
      * Check se o time pode ser convertido em data, se conter somente zero eh false.
-     *
-     * @param string $time
-     *
-     * @return bool
      */
-    protected function isOnlyZero($time)
+    protected function isOnlyZero($time): bool
     {
-        return $time && in_array($time, ['00000000', '00000000000000'], true);
+        return in_array($time, ['00000000', '00000000000000'], true);
     }
 
     /**
@@ -84,7 +64,7 @@ class FDateTime extends AbstractFilter
             $f = ['H', 'i', 's'];
             $t = false;
             foreach ($f as $v) {
-                if (false !== strpos($this->format, $v)) {
+                if (str_contains($this->format, $v)) {
                     $t = true;
                     break;
                 }
@@ -95,10 +75,7 @@ class FDateTime extends AbstractFilter
         }
     }
 
-    /**
-     * @return bool
-     */
-    public function isValid()
+    public function isValid(): bool
     {
         if ($this->required || $this->value) {
             return (bool)$this->date;
@@ -107,15 +84,12 @@ class FDateTime extends AbstractFilter
         return true;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->value;
+        return (string)$this->value;
     }
 
-    protected function init()
+    protected function init(): void
     {
         $this->type = Types::DATE_TIME;
     }

@@ -8,26 +8,23 @@ namespace Paliari\TextObject\Filters;
  */
 class FInt extends AbstractFilter
 {
-    public function convert()
+    public function convert(): int
     {
         $this->validate();
 
         return (int)$this->value;
     }
 
-    /**
-     * @return bool
-     */
-    public function isValid()
+    public function isValid(): bool
     {
         if ($this->required) {
             return $this->isInt();
         }
 
-        return $this->value ? $this->isInt() : true;
+        return !$this->value || $this->isInt();
     }
 
-    protected function isInt()
+    protected function isInt(): bool
     {
         $value = ltrim($this->value, '0');
         if ('' === $value && !$this->required) {
@@ -37,7 +34,7 @@ class FInt extends AbstractFilter
         return false !== filter_var($value, FILTER_VALIDATE_INT);
     }
 
-    protected function init()
+    protected function init(): void
     {
         $this->type = Types::INT;
     }

@@ -4,7 +4,7 @@ namespace Paliari\TextObject;
 
 use DomainException;
 use Exception;
-use Paliari\TextObject\Filters\AbstractFilter;
+use Paliari\TextObject\Filters\FilterInterface;
 use Paliari\TextObject\Filters\Types;
 
 /**
@@ -13,49 +13,31 @@ use Paliari\TextObject\Filters\Types;
  */
 class FileFacade
 {
-    /**
-     * @var File
-     */
-    protected $file;
+    protected ?File $file = null;
 
-    /**
-     * Array de params.
-     *
-     * @var array
-     */
-    protected $params_maps = [];
+    protected array $params_maps = [];
 
-    /**
-     * @var int
-     */
-    protected $rows_key_length = 0;
+    protected int $rows_key_length = 0;
 
-    public function __construct($rows_key_length = 0)
+    public function __construct(int $rows_key_length = 0)
     {
         $this->rows_key_length = $rows_key_length;
     }
 
-    /**
-     * @param int $rows_key_length
-     *
-     * @return FileFacade
-     */
-    public static function create($rows_key_length = 0)
+    public static function create(int $rows_key_length = 0): FileFacade
     {
         return new static($rows_key_length);
     }
 
     /**
      * Adiciona as colunas para ler o arquivo.
-     *
-     * @param int                   $start
-     * @param int                   $length
-     * @param AbstractFilter|string $type
-     * @param bool|array            $config array de config ou bool apenas obrigatorio
-     *
-     * @return Column
      */
-    public function createColumn($start, $length, $type = null, $config = false)
+    public function createColumn(
+        int $start,
+        int $length,
+        FilterInterface|string $type = null,
+        bool|array $config = false,
+    ): Column
     {
         if (is_string($type)) {
             $type = Types::getType($type, $config);
@@ -64,62 +46,41 @@ class FileFacade
         return new Column($start, $length, $type);
     }
 
-    /**
-     * @param int $length
-     *
-     * @return $this
-     */
-    public function setRowsKeyLength($length)
+    public function setRowsKeyLength(int $length): static
     {
         $this->rows_key_length = $length;
 
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getRowsKeyLength()
+    public function getRowsKeyLength(): int
     {
         return $this->rows_key_length;
     }
 
-    /**
-     * @param RowParams $params_map
-     * @param           $key
-     *
-     * @return $this
-     */
-    public function setParams($params_map, $key)
+    public function setParams(RowParams $params_map, string $key): static
     {
         $this->params_maps[$key] = $params_map;
 
         return $this;
     }
 
-    /**
-     * @param string $key
-     *
-     * @return RowParams
-     */
-    public function getParams($key = '')
+    public function getParams(string $key = ''): RowParams
     {
         return $this->params_maps[$key] = $this->params_maps[$key] ?? new RowParams();
     }
 
     /**
      * Adiciona as colunas para ler o arquivo.
-     *
-     * @param string                $row_key
-     * @param string                $name
-     * @param int                   $start
-     * @param int                   $length
-     * @param AbstractFilter|string $type
-     * @param bool|array            $config array de config ou bool apenas obrigatorio
-     *
-     * @return FileFacade
      */
-    public function addColumn($row_key, $name, $start, $length, $type = null, $config = false)
+    public function addColumn(
+        string $row_key,
+        string $name,
+        int $start,
+        int $length,
+        FilterInterface|string $type = null,
+        bool|array $config = false,
+    ): static
     {
         $this->getParams($row_key)->addColumn($name, $this->createColumn($start, $length, $type, $config));
 
@@ -128,14 +89,9 @@ class FileFacade
 
     /**
      * Obtem o conteudo do arquivo em uma array de array mapeado com os valores convertidos.
-     *
-     * @param string $file_name
-     *
-     * @return array
-     *
      * @throws Exception
      */
-    public function exec($file_name)
+    public function exec(string $file_name): array
     {
         $ln = 0;
         try {
@@ -144,7 +100,7 @@ class FileFacade
             $this->file->load();
             foreach ($this->file->getRows() as $line) {
                 $ln++;
-                $rv       = $this->getRowValues($line);
+                $rv = $this->getRowValues($line);
                 $result[] = $rv->parse();
             }
         } catch (DomainException $e) {
@@ -159,13 +115,9 @@ class FileFacade
     /**
      * Executa o conteudo do arquivo linha por linha,
      * chamando o $onRow com array mapeado dos valores convertidos e o numero da linha.
-     *
-     * @param string   $file_name
-     * @param callable $onRow ($row, $index)
-     *
      * @throws Exception
      */
-    public function execRowByRow($file_name, $onRow)
+    public function execRowByRow(string $file_name, callable $onRow): void
     {
         $ln = 0;
         try {
@@ -184,13 +136,13 @@ class FileFacade
         }
     }
 
-    protected function newFile($file_name)
+    protected function newFile(string $file_name): void
     {
         $this->file = new File($file_name);
         $this->validate();
     }
 
-    protected function getRowValues($line)
+    protected function getRowValues(string $line): RowValues
     {
         $key = $this->getRowsKeyLength() ? substr($line, 0, $this->getRowsKeyLength()) : '';
 
@@ -200,9 +152,9 @@ class FileFacade
     /**
      * Validate rows params.
      */
-    protected function validate()
+    protected function validate(): void
     {
-        foreach ($this->params_maps as $k => $v) {
+        foreach ($this->params_maps as $v) {
             $v->validate();
         }
     }

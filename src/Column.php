@@ -2,7 +2,7 @@
 
 namespace Paliari\TextObject;
 
-use Paliari\TextObject\Filters\AbstractFilter;
+use Paliari\TextObject\Filters\FilterInterface;
 
 /**
  * Class Column representa uma coluna de uma row do arquivo.
@@ -11,81 +11,50 @@ use Paliari\TextObject\Filters\AbstractFilter;
  */
 class Column
 {
-    protected $init = 0;
+    protected int $init = 0;
 
-    protected $length = 0;
+    protected int $length = 0;
 
-    protected $type;
+    protected ?FilterInterface $type = null;
 
-    /**
-     * @param int                  $init
-     * @param int                  $length
-     * @param AbstractFilter|mixed $type
-     */
-    public function __construct($init = 0, $length = 0, $type = null)
+    public function __construct(int $init = 0, int $length = 0, ?FilterInterface $type = null)
     {
         $this->setInit($init)
-             ->setLength($length)
-             ->setType($type)
-        ;
+            ->setLength($length)
+            ->setType($type);
     }
 
     /**
      * Posicao inicial na linha do arquivo.
-     *
-     * @param int $init
-     *
-     * @return Column
      */
-    public function setInit($init)
+    public function setInit(int $init): static
     {
-        $this->init = (int)$init;
+        $this->init = $init;
 
         return $this;
     }
 
     /**
      * Posicao inicial na linha do arquivo.
-     *
-     * @return int
      */
-    public function getInit()
+    public function getInit(): int
     {
         return $this->init;
     }
 
-    /**
-     * Comprimento do campo.
-     *
-     * @param int $length
-     *
-     * @return Column
-     */
-    public function setLength($length)
+    public function setLength(int $length): static
     {
-        $this->length = (int)$length;
+        $this->length = $length;
 
         return $this;
     }
 
-    /**
-     * Comprimento do campo.
-     *
-     * @return int
-     */
-    public function getLength()
+    public function getLength(): int
     {
         return $this->length;
     }
 
-    /**
-     * Tipo de dados a ser convertido (string, int, double, DateTime).
-     *
-     * @param AbstractFilter $type
-     *
-     * @return Column
-     */
-    public function setType($type)
+    public function setType(FilterInterface $type): static
     {
         $this->type = $type;
 
@@ -94,26 +63,19 @@ class Column
 
     /**
      * Tipo de dados a ser convertido (string, int, double, DateTime).
-     *
-     * @return AbstractFilter
      */
-    public function getType()
+    public function getType(): ?FilterInterface
     {
         return $this->type;
     }
 
     /**
      * Extrai o value da linha.
-     *
-     * @param string $content
-     *
-     * @return string
      */
-    public function extractValue($content)
+    public function extractValue(string $line): mixed
     {
-        $value = trim(mb_substr($content, $this->getInit(), $this->getLength(), 'utf-8'));
-        $type  = $this->type;
+        $value = trim(mb_substr($line, $this->getInit(), $this->getLength(), 'utf-8'));
 
-        return $type ? $type($value) : $value;
+        return $this->type ? call_user_func($this->type, $value) : $value;
     }
 }

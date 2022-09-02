@@ -19,11 +19,10 @@ class FiltersTest extends TestCase
     public function testInstance()
     {
         $diretorio = ROOT . '/src/Filters';
-        $ponteiro  = opendir($diretorio);
-
+        $ponteiro = opendir($diretorio);
         while ($nome_itens = readdir($ponteiro)) {
             $className = explode('.', $nome_itens)[0];
-            if ('' !== $className && 'AbstractFilter' !== $className && 'Types' !== $className) {
+            if ($className && !in_array($className, ['AbstractFilter', 'Types', 'FilterInterface'])) {
                 $className = "Paliari\\TextObject\\Filters\\$className";
                 $classe = new $className();
                 $this->assertTrue($classe instanceof $className);

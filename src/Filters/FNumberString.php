@@ -10,16 +10,16 @@ namespace Paliari\TextObject\Filters;
  */
 class FNumberString extends AbstractFilter
 {
-    protected function init()
+    protected function init(): void
     {
         $this->type = Types::NUMBER_STRING;
     }
 
-    public function convert()
+    public function convert(): string
     {
-        $this->value = preg_replace('/[^0-9]/', '', $this->value);
+        $this->value = preg_replace('/\D/', '', $this->value);
         $this->validate();
 
-        return $this->value;
+        return (string)$this->value;
     }
 } 

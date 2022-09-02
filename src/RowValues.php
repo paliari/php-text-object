@@ -10,32 +10,17 @@ class RowValues
 {
     /**
      * Conteudo total da linha do arquivo.
-     *
-     * @var string
      */
-    protected $content = '';
+    protected string $content = '';
 
-    /**
-     * @var RowParams
-     */
-    protected $params;
+    protected array $values = [];
 
-    protected $values = [];
-
-    /**
-     * @param RowParams $params
-     * @param string    $content
-     */
-    public function __construct($params, $content = '')
+    public function __construct(protected RowParams $params, string $content = '')
     {
-        $this->params = $params;
         $this->setContent($content);
     }
 
-    /**
-     * @return array
-     */
-    public function parse()
+    public function parse(): array
     {
         foreach ($this->params->getColumns() as $k => $column) {
             if ($column instanceof Column) {
@@ -46,36 +31,25 @@ class RowValues
         return $this->values;
     }
 
-    /**
-     * @param string $content
-     *
-     * @return RowValues
-     */
-    public function setContent($content)
+    public function setContent(string $content): static
     {
-        $this->content = $this->is_utf8($content) ? $content : utf8_encode($content);
+        $this->content = $this->isUtf8($content) ? $content : utf8_encode($content);
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getContent();
     }
 
-    protected function is_utf8($str)
+    protected function isUtf8($str): bool
     {
-        return (bool)preg_match('//u', $str) || mb_check_encoding($str, 'UTF-8');
+        return preg_match('//u', $str) || mb_check_encoding($str, 'UTF-8');
     }
 }

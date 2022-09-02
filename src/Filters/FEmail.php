@@ -8,25 +8,22 @@ namespace Paliari\TextObject\Filters;
  */
 class FEmail extends AbstractFilter
 {
-    protected function init()
+    protected function init(): void
     {
         $this->type = Types::EMAIL;
     }
 
-    /**
-     * @return bool|string
-     */
-    public function isValid()
+    public function isValid(): bool
     {
         if ($this->required) {
             return $this->isEmail();
         }
 
-        return $this->value ? $this->isEmail() : true;
+        return !$this->value || $this->isEmail();
     }
 
-    protected function isEmail()
+    protected function isEmail(): bool
     {
-        return filter_var($this->value, FILTER_VALIDATE_EMAIL);
+        return (bool)filter_var($this->value, FILTER_VALIDATE_EMAIL);
     }
 }

@@ -8,18 +8,15 @@ use DomainException;
  * Class AbstractFilter
  * @package Paliari\TextObject\Filters
  */
-abstract class AbstractFilter
+abstract class AbstractFilter implements FilterInterface
 {
-    public $type = Types::STRING;
+    public string $type = Types::STRING;
 
-    protected $required = false;
+    protected bool $required = false;
 
-    protected $value;
+    protected mixed $value = '';
 
-    /**
-     * @param bool|array $config
-     */
-    public function __construct($config = false)
+    public function __construct(bool|array $config = false)
     {
         if (is_bool($config)) {
             $this->required = $config;
@@ -34,16 +31,11 @@ abstract class AbstractFilter
         $this->init();
     }
 
-    protected function init()
+    protected function init(): void
     {
     }
 
-    /**
-     * @param string $value
-     *
-     * @return mixed
-     */
-    public function __invoke($value)
+    public function __invoke(?string $value): mixed
     {
         $this->value = $value;
 
@@ -53,14 +45,14 @@ abstract class AbstractFilter
     /**
      * @return mixed
      */
-    public function convert()
+    public function convert(): mixed
     {
         $this->validate();
 
         return $this->value;
     }
 
-    public function validate()
+    public function validate(): void
     {
         if (!$this->isValid()) {
             throw new DomainException("Valor '$this->value' inválido para tipo '$this->type'!");
@@ -70,15 +62,12 @@ abstract class AbstractFilter
     /**
      * @return bool
      */
-    public function isValid()
+    public function isValid(): bool
     {
-        return !$this->required ?: (bool)$this->value;
+        return !$this->required || $this->value;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return (string)$this->convert();
     }

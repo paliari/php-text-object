@@ -10,17 +10,12 @@ use DomainException;
  */
 class RowParams
 {
-    protected $columns = [];
+    protected array $columns = [];
 
     /**
-     * @param string $name
-     * @param Column $column
-     *
-     * @return RowParams
-     *
      * @throws DomainException
      */
-    public function addColumn($name, $column)
+    public function addColumn(string $name, Column $column): static
     {
         if (isset($this->columns[$name])) {
             throw new DomainException("Coluna '$name' já existe!");
@@ -33,7 +28,7 @@ class RowParams
     /**
      * @return Column[]
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->columns;
     }
@@ -43,7 +38,7 @@ class RowParams
      *
      * @throws DomainException
      */
-    public function validate()
+    public function validate(): void
     {
         $old_len = 0;
         foreach ($this->getColumns() as $k => $column) {

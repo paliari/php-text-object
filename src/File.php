@@ -10,28 +10,22 @@ use Exception;
  */
 class File
 {
-    protected $name = '';
+    protected string $name = '';
 
-    protected $rows = [];
+    protected array $rows = [];
 
-    protected $resource;
+    protected mixed $resource = null;
 
-    /**
-     * @param string $name nome do arquivo
-     */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }
 
     /**
      * Obtem o conteudo do arquivo em array por linhas.
-     *
-     * @return array
-     *
      * @throws Exception
      */
-    public function load()
+    public function load(): array
     {
         if (file_exists($this->name)) {
             $this->rows = file($this->name, 0);
@@ -42,23 +36,16 @@ class File
         }
     }
 
-    /**
-     * @return array
-     */
-    public function getRows()
+    public function getRows(): array
     {
         return $this->rows;
     }
 
     /**
      * Abre o arquivo
-     *
-     * @param string $mode
-     *
-     * @return $this
      * @throws Exception
      */
-    public function open($mode = 'r')
+    public function open(string $mode = 'r'): static
     {
         if (file_exists($this->name)) {
             $this->resource = fopen($this->name, $mode);
@@ -71,20 +58,16 @@ class File
 
     /**
      * Retorna uma linha do ponteiro do arquivo.
-     *
-     * @return false|string
      */
-    public function getRow()
+    public function getRow(): bool|string
     {
         return fgets($this->resource);
     }
 
     /**
      * Fecha o ponteiro do arquivo aberto
-     *
-     * @return bool
      */
-    public function close()
+    public function close(): bool
     {
         return fclose($this->resource);
     }

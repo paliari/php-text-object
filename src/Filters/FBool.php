@@ -8,19 +8,16 @@ namespace Paliari\TextObject\Filters;
  */
 class FBool extends FString
 {
-    protected $trues = ['1', 'Y', 'S', 'TRUE'];
+    protected array $trues = ['1', 'y', 's', 'true'];
 
-    protected function init()
+    protected function init(): void
     {
         $this->type = Types::BOOL;
     }
 
-    /**
-     * @return bool
-     */
-    public function convert()
+    public function convert(): bool
     {
-        $this->value = strtoupper(parent::convert());
+        $this->value = strtolower(parent::convert());
 
         return in_array($this->value, $this->trues);
     }
