@@ -104,9 +104,9 @@ class FileFacade
                 $result[] = $rv->parse();
             }
         } catch (DomainException $e) {
-            throw new DomainException($e->getMessage() . " linha: $ln");
+            throw new DomainException($e->getMessage() . " linha: $ln", $e->getCode(), $e);
         } catch (Exception $e) {
-            throw new Exception($e->getMessage() . " linha: $ln");
+            throw new Exception($e->getMessage() . " linha: $ln", $e->getCode(), $e);
         }
 
         return $result;
@@ -130,9 +130,9 @@ class FileFacade
             }
             $this->file->close();
         } catch (DomainException $e) {
-            throw new DomainException($e->getMessage() . " linha: $ln");
+            throw new DomainException($e->getMessage() . " linha: $ln", $e->getCode(), $e);
         } catch (Exception $e) {
-            throw new Exception($e->getMessage() . " linha: $ln");
+            throw new Exception($e->getMessage() . " linha: $ln", $e->getCode(), $e);
         }
     }
 
