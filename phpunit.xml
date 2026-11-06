@@ -1,11 +1,23 @@
-<phpunit bootstrap="tests/bootstrap.php"
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         cacheDirectory=".phpunit.cache"
          colors="true"
-         convertErrorsToExceptions="true"
-         convertWarningsToExceptions="true"
-         convertNoticesToExceptions="true">
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnPhpunitDeprecations="true"
+         failOnDeprecation="true"
+         failOnWarning="true"
+         failOnNotice="true">
     <testsuites>
         <testsuite name="Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
 </phpunit>

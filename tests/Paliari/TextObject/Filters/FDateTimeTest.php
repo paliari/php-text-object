@@ -1,5 +1,6 @@
 <?php
 use Paliari\TextObject\Filters\FDateTime;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -41,9 +42,8 @@ class FDateTimeTest extends TestCase
 
     /**
      * Testa datas num periodo de 10 anos.
-     *
-     * @group long
      */
+    #[Group('long')]
     public function testPeriodo()
     {
         $stop = date('Y', time()) + 5;
@@ -71,9 +71,8 @@ class FDateTimeTest extends TestCase
 
     /**
      * testa com data time de um dia inteiro a cada segundo.
-     *
-     * @group long
      */
+    #[Group('long')]
     public function testPeriodoTime()
     {
         $y   = date('Y', time());
