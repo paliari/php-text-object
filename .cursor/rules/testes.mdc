@@ -1,0 +1,30 @@
+---
+description: Convenções dos testes PHPUnit
+globs: tests/**
+alwaysApply: false
+---
+
+# Testes (PHPUnit 9)
+
+- Arquivos em `tests/Paliari/TextObject/`, espelhando o caminho em `src/`,
+  com nome `<Classe>Test.php` e classe estendendo `PHPUnit\Framework\TestCase`.
+- Métodos `testAlgumaCoisa()`; docblock curto em português explicando o cenário.
+- Para cada filtro, cubra: obrigatório vazio (exceção), opcional vazio,
+  valor válido e valor inválido.
+- Exceções: `$this->expectException('DomainException')` antes da chamada.
+- Fixtures de arquivo ficam ao lado do teste (`test.txt`, `test_facade.txt`);
+  a constante `ROOT` (de `tests/bootstrap.php`) aponta para a raiz do projeto.
+
+```php
+/**
+ * Se passar um email invalido.
+ */
+public function testInvalid()
+{
+    $this->expectException('DomainException');
+    $f = new FEmail();
+    $f('x@xx');
+}
+```
+
+Rode `vendor/bin/phpunit` para validar.

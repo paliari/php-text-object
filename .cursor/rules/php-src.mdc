@@ -1,0 +1,43 @@
+---
+description: Padrões de código PHP 8 da biblioteca
+globs: src/**/*.php
+alwaysApply: false
+---
+
+# Padrões PHP
+
+- PHP 8: tipar propriedades, parâmetros e retornos (`mixed`, union types,
+  `?Tipo`, `static` em setters fluentes).
+- Propriedades `protected` com getters/setters; setters retornam `static`.
+- Strings com `mb_*` e `'utf-8'` (o arquivo pode ter acentos).
+- Erros de validação lançam `DomainException` com mensagem em português.
+- Uma classe por arquivo, PSR-4 sob `Paliari\TextObject\`.
+
+# Novo filtro
+
+1. Criar `src/Filters/FNome.php` estendendo `AbstractFilter`.
+2. Definir `$this->type` em `init()` e sobrescrever `isValid()` / `convert()`.
+3. Adicionar a constante e o mapeamento em `Filters\Types::$typesMap`.
+4. Criar o teste em `tests/Paliari/TextObject/Filters/`.
+
+```php
+class FEmail extends AbstractFilter
+{
+    protected function init(): void
+    {
+        $this->type = Types::EMAIL;
+    }
+
+    public function isValid(): bool
+    {
+        if ($this->required) {
+            return $this->isEmail();
+        }
+
+        return !$this->value || $this->isEmail();
+    }
+}
+```
+
+Respeite a semântica de `required`: valor vazio é válido quando o campo não
+é obrigatório.

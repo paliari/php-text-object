@@ -1,0 +1,36 @@
+---
+description: Visão geral do projeto, idioma e fluxo de trabalho
+alwaysApply: true
+---
+
+# php-text-object
+
+Biblioteca PHP (`paliari/php-text-object`) que converte arquivos de texto com
+colunas de largura fixa em arrays/objetos, validando e convertendo cada coluna
+para tipos PHP via filtros.
+
+## Idioma
+
+- Responda sempre em português.
+- Comentários, docblocks e mensagens de exceção em português.
+- Commits no padrão conventional commits, com o tipo em inglês e a descrição
+  em português: `fix: corrige parse de data vazia`, `feat: adiciona filtro FCpf`.
+
+## Estrutura
+
+- `src/` — namespace `Paliari\TextObject\` (PSR-4).
+  - `FileFacade` — API fluente pública (`create()->addColumn(...)->exec($file)`).
+  - `File`, `Column`, `RowParams`, `RowValues` — leitura e extração por posição.
+  - `Filters/` — um filtro por tipo (`F*`), registrados em `Filters\Types`.
+- `tests/Paliari/TextObject/` — espelha `src/`, com arquivos `.txt` de fixture.
+- `vendor/` é gerado pelo Composer: nunca edite.
+
+## Comandos
+
+- Rodar testes: `vendor/bin/phpunit`
+- Um teste: `vendor/bin/phpunit --filter FEmailTest`
+- Requer PHP >= 8.0 e `ext-mbstring`.
+
+Depois de alterar código em `src/`, rode os testes antes de concluir.
+Não altere a API pública de `FileFacade` / `Types` sem avisar, pois é uma
+biblioteca publicada no Packagist.
