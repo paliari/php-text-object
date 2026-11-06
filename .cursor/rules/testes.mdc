@@ -4,7 +4,7 @@ globs: tests/**
 alwaysApply: false
 ---
 
-# Testes (PHPUnit 9)
+# Testes (PHPUnit 11)
 
 - Arquivos em `tests/Paliari/TextObject/`, espelhando o caminho em `src/`,
   com nome `<Classe>Test.php` e classe estendendo `PHPUnit\Framework\TestCase`.
@@ -12,6 +12,8 @@ alwaysApply: false
 - Para cada filtro, cubra: obrigatório vazio (exceção), opcional vazio,
   valor válido e valor inválido.
 - Exceções: `$this->expectException('DomainException')` antes da chamada.
+- Metadados via atributos (`#[Group('long')]`), nunca annotations no docblock.
+- O `phpunit.xml` falha em deprecations/warnings: corrija a causa, não silencie.
 - Fixtures de arquivo ficam ao lado do teste (`test.txt`, `test_facade.txt`);
   a constante `ROOT` (de `tests/bootstrap.php`) aponta para a raiz do projeto.
 

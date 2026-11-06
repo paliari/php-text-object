@@ -24,6 +24,8 @@ $result = FileFacade::create()
 
 ```
 
+**Requisitos:** PHP 8.2 ou superior (testado até 8.5) e `ext-mbstring`.
+
 **Install Composer:**
     
 ```bash

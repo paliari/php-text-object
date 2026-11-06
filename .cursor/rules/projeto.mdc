@@ -29,7 +29,9 @@ para tipos PHP via filtros.
 
 - Rodar testes: `vendor/bin/phpunit`
 - Um teste: `vendor/bin/phpunit --filter FEmailTest`
-- Requer PHP >= 8.0 e `ext-mbstring`.
+- Requer PHP >= 8.2 (testado até 8.5, CI em `.github/workflows/tests.yml`)
+  e `ext-mbstring`. Não use recursos exclusivos do PHP 8.3+ (constantes de
+  classe tipadas, `#[\Override]`, property hooks etc.).
 
 Depois de alterar código em `src/`, rode os testes antes de concluir.
 Não altere a API pública de `FileFacade` / `Types` sem avisar, pois é uma
