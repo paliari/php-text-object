@@ -38,7 +38,7 @@ class FInt2Double extends AbstractFilter
 
     protected function isInt(): bool
     {
-        $value = ltrim($this->value, '0');
+        $value = ltrim((string)$this->value, '0');
         if (!$value && !$this->required) {
             return true;
         }

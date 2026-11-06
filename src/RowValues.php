@@ -33,7 +33,7 @@ class RowValues
 
     public function setContent(string $content): static
     {
-        $this->content = $this->isUtf8($content) ? $content : utf8_encode($content);
+        $this->content = $this->isUtf8($content) ? $content : mb_convert_encoding($content, 'UTF-8', 'ISO-8859-1');
 
         return $this;
     }

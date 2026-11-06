@@ -17,7 +17,7 @@ class FBool extends FString
 
     public function convert(): bool
     {
-        $this->value = strtolower(parent::convert());
+        $this->value = strtolower((string)parent::convert());
 
         return in_array($this->value, $this->trues);
     }

@@ -17,7 +17,7 @@ class FNumberString extends AbstractFilter
 
     public function convert(): string
     {
-        $this->value = preg_replace('/\D/', '', $this->value);
+        $this->value = preg_replace('/\D/', '', (string)$this->value);
         $this->validate();
 
         return (string)$this->value;

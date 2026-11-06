@@ -31,6 +31,19 @@ class FileFacadeTest extends TestCase
         $this->assertEquals($this->expected(), $rows);
     }
 
+    /**
+     * Coluna sem tipo retorna o valor bruto (string).
+     */
+    public function testColumnSemTipo()
+    {
+        $file_name = __DIR__ . '/test_facade.txt';
+        $result    = FileFacade::create()
+                               ->addColumn('', 'id', 0, 2)
+                               ->addColumn('', 'c3', 15, 5, null)
+                               ->exec($file_name);
+        $this->assertSame(['id' => '11', 'c3' => 'abcdz'], $result[0]);
+    }
+
     protected function expected()
     {
         return [

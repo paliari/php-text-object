@@ -35,7 +35,7 @@ class FileFacade
     public function createColumn(
         int $start,
         int $length,
-        FilterInterface|string $type = null,
+        FilterInterface|string|null $type = null,
         bool|array $config = false,
     ): Column
     {
@@ -78,7 +78,7 @@ class FileFacade
         string $name,
         int $start,
         int $length,
-        FilterInterface|string $type = null,
+        FilterInterface|string|null $type = null,
         bool|array $config = false,
     ): static
     {

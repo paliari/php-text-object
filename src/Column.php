@@ -54,7 +54,7 @@ class Column
         return $this->length;
     }
 
-    public function setType(FilterInterface $type): static
+    public function setType(?FilterInterface $type): static
     {
         $this->type = $type;
 
